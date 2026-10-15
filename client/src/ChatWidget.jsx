@@ -46,14 +46,15 @@ export default function ChatWidget({ theme }) {
     fetchSession();
   }, [sessionId]);
 
-  // Connect WebSocket
+  // Connect WebSocket with robust fallback
   useEffect(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    // Use current host which Vite proxies /ws to ws://localhost:5000, or directly localhost:5000 in fallback
+    // If running on Vite dev server, /ws is proxied to port 5000, fallback to direct port 5000
     const wsUrl = `${protocol}//${window.location.host}/ws`;
     
     let ws;
     let reconnectTimer;
+    let pollInterval;
 
     const connect = () => {
       try {
@@ -89,24 +90,51 @@ export default function ChatWidget({ theme }) {
         };
 
         ws.onclose = () => {
-          reconnectTimer = setTimeout(connect, 4000);
+          reconnectTimer = setTimeout(connect, 3000);
         };
 
         ws.onerror = () => {
           ws.close();
         };
       } catch (e) {
-        reconnectTimer = setTimeout(connect, 5000);
+        reconnectTimer = setTimeout(connect, 3000);
       }
     };
 
     connect();
 
+    // Secondary database polling sync: guarantees messages sync every 3s even if WS drops
+    pollInterval = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/chat/session/${sessionId}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.session?.messages) {
+            setMessages((prev) => {
+              if (data.session.messages.length > prev.length) {
+                const newAdminMsgs = data.session.messages.filter(
+                  m => m.sender === 'admin' && !prev.some(p => p.id === m.id)
+                );
+                if (newAdminMsgs.length > 0 && !isOpen) {
+                  setUnreadCount(c => c + newAdminMsgs.length);
+                }
+                return data.session.messages;
+              }
+              return prev;
+            });
+          }
+        }
+      } catch (err) {
+        // Silent catch for polling
+      }
+    }, 3000);
+
     return () => {
       clearTimeout(reconnectTimer);
+      clearInterval(pollInterval);
       if (ws) ws.close();
     };
-  }, [sessionId, clientName, clientEmail]);
+  }, [sessionId, clientName, clientEmail, isOpen]);
 
   // Auto-scroll when messages update
   useEffect(() => {

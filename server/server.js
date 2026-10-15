@@ -141,11 +141,11 @@ wss.on('connection', (ws) => {
           broadcastToRole('admin', { type: 'new_chat_session', session });
         }
         ws.send(JSON.stringify({ type: 'init_client_success', session }));
-      } else if (type === 'chat_message') {
+      } else if (type === 'chat_message' || type === 'send_message') {
         const { sessionId, text, sender, clientName, clientEmail } = payload;
         if (!sessionId || !text?.trim()) return;
 
-        const newMsg = saveChatMessage(sessionId, text, sender, clientName, clientEmail);
+        const newMsg = saveChatMessage(sessionId, text, sender || 'client', clientName, clientEmail);
         const session = getChatSession(sessionId);
 
         sendToSession(sessionId, {
@@ -157,7 +157,8 @@ wss.on('connection', (ws) => {
             clientName: session.clientName,
             clientEmail: session.clientEmail,
             updatedAt: session.updatedAt,
-            unreadAdmin: session.unreadAdmin
+            unreadAdmin: session.unreadAdmin,
+            unreadClient: session.unreadClient
           }
         });
       } else if (type === 'mark_read') {
@@ -377,7 +378,7 @@ app.post('/api/admin/projects', requireAdmin, (req, res) => {
 // Admin: Update project (percentage, status, notes, lastUpdate)
 app.patch('/api/admin/projects/:id', requireAdmin, (req, res) => {
   const { id } = req.params;
-  const { progress, status, notes, lastUpdate, targetEndDate, title } = req.body;
+  const { progress, status, notes, lastUpdate, targetEndDate, title, category, startDate } = req.body;
 
   const current = db.prepare('SELECT * FROM projects WHERE id = ?').get(id);
   if (!current) {
@@ -390,12 +391,14 @@ app.patch('/api/admin/projects/:id', requireAdmin, (req, res) => {
   const updatedLastUpdate = lastUpdate !== undefined ? lastUpdate : current.lastUpdate;
   const updatedEndDate = targetEndDate !== undefined ? targetEndDate : current.targetEndDate;
   const updatedTitle = title !== undefined ? title : current.title;
+  const updatedCategory = category !== undefined ? category : current.category;
+  const updatedStartDate = startDate !== undefined ? startDate : current.startDate;
 
   db.prepare(`
     UPDATE projects
-    SET progress = ?, status = ?, notes = ?, lastUpdate = ?, targetEndDate = ?, title = ?
+    SET progress = ?, status = ?, notes = ?, lastUpdate = ?, targetEndDate = ?, title = ?, category = ?, startDate = ?
     WHERE id = ?
-  `).run(updatedProgress, updatedStatus, updatedNotes, updatedLastUpdate, updatedEndDate, updatedTitle, id);
+  `).run(updatedProgress, updatedStatus, updatedNotes, updatedLastUpdate, updatedEndDate, updatedTitle, updatedCategory, updatedStartDate, id);
 
   const updated = db.prepare('SELECT * FROM projects WHERE id = ?').get(id);
   res.json({ success: true, message: 'Project progress updated.', project: updated });

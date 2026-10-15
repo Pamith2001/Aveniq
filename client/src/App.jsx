@@ -2,7 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import logoDark from './assets/logo-dark.jpg';
 import logoLight from './assets/logo-light.jpg';
 import ChatWidget from './ChatWidget.jsx';
-import AdminPortal from './AdminPortal.jsx';
+import AdminLogin from './AdminLogin.jsx';
+import AdminDashboard from './AdminDashboard.jsx';
 import ClientPortal from './ClientPortal.jsx';
 import OrderServiceModal, { SOFTWARE_SERVICES } from './OrderServiceModal.jsx';
 import './App.css';
@@ -85,9 +86,17 @@ export default function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Hidden admin portal route: Accessible only via /admin or /portal
+  // Dedicated Admin Dashboard Route: /admin-dashboard
+  if (currentPath === '/admin-dashboard' || window.location.hash === '#admin-dashboard') {
+    return <AdminDashboard />;
+  }
+
+  // Admin Login / Gatekeeper Route: /admin or /portal
   if (currentPath === '/admin' || currentPath === '/portal' || window.location.hash === '#admin') {
-    return <AdminPortal />;
+    return <AdminLogin onAuthenticated={() => {
+      window.history.pushState({}, '', '/admin-dashboard');
+      setCurrentPath('/admin-dashboard');
+    }} />;
   }
 
   // Client Portal route: Customers login to track their project progress
@@ -127,6 +136,9 @@ export default function App() {
   const [estService, setEstService] = useState('Web & Mobile App');
   const [estScale, setEstScale] = useState('Small Business / Startup');
   const [estTimeline, setEstTimeline] = useState('Standard (2-4 Weeks)');
+
+  // Mobile navigation drawer toggle
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Canvas Ref for futuristic neural background
   const canvasRef = useRef(null);
@@ -185,16 +197,18 @@ export default function App() {
     };
     window.addEventListener('resize', handleResize);
 
+    // High-performance adaptive particle count: 18 on mobile, 45 on desktop
+    const isMobile = width < 768;
+    const count = isMobile ? 18 : 45;
     const particles = [];
-    const count = Math.min(width > 768 ? 65 : 30, 80);
 
     for (let i = 0; i < count; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.7,
-        vy: (Math.random() - 0.5) * 0.7,
-        radius: Math.random() * 2 + 1.2
+        vx: (Math.random() - 0.5) * (isMobile ? 0.4 : 0.6),
+        vy: (Math.random() - 0.5) * (isMobile ? 0.4 : 0.6),
+        radius: Math.random() * 1.5 + 1
       });
     }
 
@@ -203,7 +217,9 @@ export default function App() {
       mouse.x = e.clientX;
       mouse.y = e.clientY;
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    if (!isMobile) {
+      window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    }
 
     const render = () => {
       ctx.clearRect(0, 0, width, height);
@@ -233,7 +249,7 @@ export default function App() {
           const dy = p.y - p2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 130) {
+          if (dist < (isMobile ? 85 : 125)) {
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
@@ -389,6 +405,10 @@ export default function App() {
                 src={currentLogo}
                 alt={theme === 'dark' ? 'Aveniq Dark Logo' : 'Aveniq Light Logo'}
                 className="brand-logo-img"
+                width="44"
+                height="44"
+                decoding="async"
+                fetchPriority="high"
               />
             </div>
             <div>
@@ -462,11 +482,74 @@ export default function App() {
               🛒 Order Service
             </button>
 
-            <a href="#contact" className="btn btn-secondary" id="nav-cta-btn" style={{ padding: '8px 14px', fontSize: '0.84rem' }}>
+            <a href="#contact" className="btn btn-secondary nav-inquiry-desktop" id="nav-cta-btn" style={{ padding: '8px 14px', fontSize: '0.84rem' }}>
               Inquiry
             </a>
+
+            {/* Mobile Hamburger Menu Toggle */}
+            <button
+              type="button"
+              className="mobile-hamburger-btn"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? '✕' : '☰'}
+            </button>
           </div>
         </div>
+
+        {/* Mobile Navigation Drawer */}
+        {mobileMenuOpen && (
+          <div className="mobile-nav-drawer">
+            <ul className="mobile-nav-list">
+              <li>
+                <a href="#services" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                  🚀 Our Services
+                </a>
+              </li>
+              <li>
+                <a href="#estimator" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                  📊 Project Scoper
+                </a>
+              </li>
+              <li>
+                <a href="#tech-stack" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                  ⚡ Technologies
+                </a>
+              </li>
+              <li>
+                <a href="#owner-connect" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                  📞 Contact Us
+                </a>
+              </li>
+              <li>
+                <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                  ✉️ Submit Inquiry
+                </a>
+              </li>
+              <li style={{ paddingTop: '8px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <a
+                  href="/client-portal"
+                  className="btn btn-secondary"
+                  style={{ textAlign: 'center', width: '100%', padding: '10px' }}
+                >
+                  📂 Client Login
+                </a>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setSelectedOrderService(SOFTWARE_SERVICES[0]);
+                    setOrderModalOpen(true);
+                  }}
+                  className="btn btn-primary"
+                  style={{ width: '100%', padding: '10px' }}
+                >
+                  🛒 Order Service
+                </button>
+              </li>
+            </ul>
+          </div>
+        )}
       </header>
 
       {/* ====================================================================
