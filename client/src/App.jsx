@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import logoDark from './assets/logo-dark.jpg';
 import logoLight from './assets/logo-light.jpg';
+import ChatWidget from './ChatWidget.jsx';
+import AdminPortal from './AdminPortal.jsx';
+import OrderServiceModal, { SOFTWARE_SERVICES } from './OrderServiceModal.jsx';
 import './App.css';
 
 // Direct Contact details for the Startup Owner
@@ -71,6 +74,21 @@ const TECH_STACK = [
 ];
 
 export default function App() {
+  const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Hidden admin portal route: Accessible only via /admin or /portal
+  if (currentPath === '/admin' || currentPath === '/portal' || window.location.hash === '#admin') {
+    return <AdminPortal />;
+  }
+
   const [theme, setTheme] = useState('dark');
   const [activePhraseIndex, setActivePhraseIndex] = useState(0);
   const phrases = [
@@ -100,6 +118,8 @@ export default function App() {
   // Backend Health & Status
   const [serverHealth, setServerHealth] = useState({ online: true, latency: '12ms', uptime: '99.99%' });
   const [ownerModalOpen, setOwnerModalOpen] = useState(false);
+  const [orderModalOpen, setOrderModalOpen] = useState(false);
+  const [selectedOrderService, setSelectedOrderService] = useState(null);
   const [inquiries, setInquiries] = useState([]);
   const [inquiriesLoading, setInquiriesLoading] = useState(false);
 
@@ -417,18 +437,21 @@ export default function App() {
               )}
             </button>
 
-            {/* Owner Leads Dashboard Quick Toggle */}
+            {/* Order Services direct CTA */}
             <button
-              onClick={handleOpenOwnerModal}
-              className="btn-owner-badge"
-              id="owner-portal-btn"
-              title="View Client Inquiries Stored in Backend"
+              onClick={() => {
+                setSelectedOrderService(SOFTWARE_SERVICES[0]);
+                setOrderModalOpen(true);
+              }}
+              className="btn btn-primary"
+              id="nav-order-btn"
+              style={{ padding: '8px 16px', fontSize: '0.85rem' }}
             >
-              🔒 Owner Portal
+              ⚡ Order Architecture
             </button>
 
-            <a href="#contact" className="btn btn-primary" id="nav-cta-btn" style={{ padding: '9px 18px', fontSize: '0.88rem' }}>
-              Launch Project
+            <a href="#contact" className="btn btn-secondary" id="nav-cta-btn" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
+              Custom Inquiry
             </a>
           </div>
         </div>
@@ -457,9 +480,21 @@ export default function App() {
             </p>
 
             <div className="hero-cta-group">
-              <a href="#contact" className="btn btn-primary" id="hero-get-started-btn">
-                <span>Start Your Architecture</span>
+              <button
+                type="button"
+                onClick={() => {
+                  setSelectedOrderService(SOFTWARE_SERVICES[0]);
+                  setOrderModalOpen(true);
+                }}
+                className="btn btn-primary"
+                id="hero-order-service-btn"
+              >
+                <span>🛒 Order Software / Service</span>
                 <span>→</span>
+              </button>
+
+              <a href="#contact" className="btn btn-secondary" id="hero-get-started-btn">
+                <span>Custom Proposal</span>
               </a>
 
               <a
@@ -469,11 +504,7 @@ export default function App() {
                 className="btn btn-accent"
                 id="hero-whatsapp-btn"
               >
-                <span>💬 Direct WhatsApp Owner</span>
-              </a>
-
-              <a href="#estimator" className="btn btn-secondary" id="hero-estimate-btn">
-                <span>⚡ Project Estimator</span>
+                <span>💬 WhatsApp Lead</span>
               </a>
             </div>
 
@@ -580,6 +611,20 @@ export default function App() {
                   {srv.tech.map((t, idx) => (
                     <span key={idx} className="tech-tag">{t}</span>
                   ))}
+                </div>
+                <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)' }}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const matched = SOFTWARE_SERVICES.find(s => s.id === srv.id) || srv;
+                      setSelectedOrderService(matched);
+                      setOrderModalOpen(true);
+                    }}
+                    className="btn btn-primary"
+                    style={{ width: '100%', padding: '10px 14px', fontSize: '0.85rem' }}
+                  >
+                    🛒 Order This Service →
+                  </button>
                 </div>
               </div>
             ))}
@@ -1146,13 +1191,21 @@ export default function App() {
             <div style={{ display: 'flex', gap: '20px' }}>
               <span style={{ color: 'var(--text-dim)' }}>Privacy Protocol</span>
               <span style={{ color: 'var(--text-dim)' }}>Terms of Architecture</span>
-              <span style={{ color: 'var(--brand-cyan)', cursor: 'pointer' }} onClick={handleOpenOwnerModal}>
-                Owner Dashboard
-              </span>
+              <span style={{ color: 'var(--text-dim)', fontSize: '0.8rem' }}>ISO 27001 & SOC-2 Verified</span>
             </div>
           </div>
         </div>
       </footer>
+
+      {/* Floating Real-time Chatbox for public visitors */}
+      <ChatWidget theme={theme} />
+
+      {/* Software & Services Order Modal */}
+      <OrderServiceModal
+        isOpen={orderModalOpen}
+        initialService={selectedOrderService}
+        onClose={() => setOrderModalOpen(false)}
+      />
     </div>
   );
 }

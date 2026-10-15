@@ -1,0 +1,41 @@
+[
+  {
+    "sessionId": "sess_1792036185826_rljz5",
+    "clientName": "Visitor",
+    "clientEmail": "",
+    "createdAt": "2026-10-15T03:53:18.355Z",
+    "updatedAt": "2026-10-15T03:53:18.355Z",
+    "unreadAdmin": 0,
+    "unreadClient": 0,
+    "messages": []
+  },
+  {
+    "sessionId": "demo-session-client-1",
+    "clientName": "David Vance",
+    "clientEmail": "dvance@apexcapital.org",
+    "createdAt": "2026-10-15T03:23:17.281Z",
+    "updatedAt": "2026-10-15T03:38:17.281Z",
+    "unreadAdmin": 1,
+    "unreadClient": 0,
+    "messages": [
+      {
+        "id": "msg_1",
+        "sender": "client",
+        "text": "Hello, we are looking for dedicated AI development team for enterprise workflows.",
+        "timestamp": "2026-10-15T03:23:17.281Z"
+      },
+      {
+        "id": "msg_2",
+        "sender": "admin",
+        "text": "Hi David! Thank you for reaching out. We specialize in custom multi-agent LLM systems and secure cloud infrastructure. What is your estimated timeline?",
+        "timestamp": "2026-10-15T03:33:17.281Z"
+      },
+      {
+        "id": "msg_3",
+        "sender": "client",
+        "text": "We are planning for a Q4 kickoff. Can we schedule a fast discovery call?",
+        "timestamp": "2026-10-15T03:38:17.281Z"
+      }
+    ]
+  }
+]
