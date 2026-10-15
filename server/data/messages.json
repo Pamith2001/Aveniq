@@ -1,0 +1,39 @@
+[
+  {
+    "id": "AVQ-3441",
+    "name": "Marcus Vance",
+    "email": "marcus@vancecloud.io",
+    "phone": "+1 (555) 782-9011",
+    "company": "Vance Cloud Systems",
+    "service": "Autonomous AI & LLM Systems",
+    "budget": ",000 - ,000",
+    "message": "We need an autonomous AI platform to automate our logistics routing using multi-agent systems.",
+    "directMethod": "Standard Contact Form",
+    "status": "New Inquiry",
+    "timestamp": "2026-10-14T02:30:00.411Z"
+  },
+  {
+    "id": "AVQ-9012",
+    "name": "Alexander Wright",
+    "email": "a.wright@nexuscapital.io",
+    "phone": "+1 (555) 349-8201",
+    "company": "Nexus Capital Partners",
+    "service": "AI & Autonomous Agents",
+    "budget": "$25,000 - $50,000",
+    "message": "Looking to build an autonomous risk-assessment engine with LLM agents and real-time streaming data.",
+    "status": "In Review",
+    "timestamp": "2026-10-13T21:19:42.565Z"
+  },
+  {
+    "id": "AVQ-8941",
+    "name": "Elena Rostova",
+    "email": "elena@quantumscale.tech",
+    "phone": "+44 20 7946 0912",
+    "company": "QuantumScale Tech",
+    "service": "Cloud Native & Microservices",
+    "budget": "$50,000+",
+    "message": "Need complete cloud infrastructure redesign with Kubernetes cluster orchestration and zero downtime failover.",
+    "status": "Contacted",
+    "timestamp": "2026-10-13T02:19:42.566Z"
+  }
+]
