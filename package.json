@@ -1,0 +1,13 @@
+{
+  "name": "aveniq-suite",
+  "version": "1.0.0",
+  "description": "Aveniq Web and Backend Solution",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "npm --prefix server start",
+    "client": "npm --prefix client run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

@@ -2,71 +2,64 @@ import React, { useState } from 'react';
 
 export const SOFTWARE_SERVICES = [
   {
-    id: 'ai-agents',
-    name: 'Autonomous AI & Multi-Agent Systems',
-    category: 'Artificial Intelligence',
-    icon: '⚡',
-    basePrice: '$18,500',
-    description: 'Custom fine-tuned LLM agents, dynamic vector search pipelines, autonomous reasoning workflows, and enterprise automation.',
-    deliverables: ['Custom RAG & Multi-Agent Orchestration', 'Self-Healing Tool Calling Architecture', 'Vector DB & Hybrid Semantic Search', 'API Endpoints & Real-time WebSockets', 'Full IP Rights & Deployment Automation'],
-    defaultTimeline: '6-8 Weeks'
-  },
-  {
-    id: 'cloud-saas',
-    name: 'Enterprise Cloud-Native SaaS Platform',
-    category: 'Cloud Architecture',
-    icon: '☁️',
-    basePrice: '$24,000',
-    description: 'Scalable multi-tenant cloud architectures with Kubernetes microservices, high-concurrency PostgreSQL, and automated CI/CD.',
-    deliverables: ['Multi-Tenant Database Architecture', 'Kubernetes Helm & Auto-scaling Ingress', 'Role-Based Access Control (RBAC)', 'Stripe / LemonSqueezy Billing Integration', 'Zero-Downtime Rolling Deployment Pipelines'],
-    defaultTimeline: '8-12 Weeks'
-  },
-  {
     id: 'web-mobile',
-    name: 'Ultra-Fast React 19 & Mobile Suite',
-    category: 'Full-Stack Apps',
+    name: 'Web & Mobile App Development',
+    category: 'Full-Stack Development',
     icon: '🚀',
-    basePrice: '$14,500',
-    description: 'High-velocity modern web application with React 19, cross-platform iOS/Android compatibility, and instant state reactivity.',
-    deliverables: ['Responsive Web App + PWA / Hybrid Mobile', 'Glassmorphism Futuristic Custom UI/UX', 'Sub-millisecond Global Edge Caching', 'Authentication & Session Shield', 'Real-Time Notifications & WebSocket Bus'],
-    defaultTimeline: '4-6 Weeks'
+    description: 'Modern, responsive business websites, web applications, customer portals, and mobile-friendly applications.',
+    deliverables: ['Custom Responsive Web Design', 'Mobile & Tablet Optimization', 'Clean React & Node.js Architecture', 'Fast Loading & SEO Optimization', 'Contact Forms & WhatsApp Direct Chat'],
+    defaultTimeline: '2-4 Weeks'
   },
   {
-    id: 'data-pipelines',
-    name: 'Real-Time Streaming & Big Data Engine',
-    category: 'Data Engineering',
-    icon: '📊',
-    basePrice: '$21,000',
-    description: 'Distributed event-driven data streaming pipelines that ingest millions of events per second with sub-second analytics.',
-    deliverables: ['Apache Kafka / Redpanda Cluster Setup', 'ClickHouse / Time-Series Database Store', 'Real-Time Streaming Telemetry Dashboards', 'Automated ETL & Anomaly Alert Triggers', 'High-Throughput Webhook Processing Engine'],
-    defaultTimeline: '6-10 Weeks'
+    id: 'custom-software',
+    name: 'Custom Business Software & Management Systems',
+    category: 'Software Solutions',
+    icon: '💻',
+    description: 'Tailored management systems such as Inventory Management, POS systems, Billing, and CRM tools built for Sri Lankan business operations.',
+    deliverables: ['Custom Database & Record Management', 'Role-Based User Permissions', 'Invoicing, Billing & PDF Generation', 'Sales & Inventory Tracking', 'Secure Cloud Data Backup'],
+    defaultTimeline: '3-6 Weeks'
   },
   {
-    id: 'cybersecurity',
-    name: 'Zero-Trust Cyber Architecture & Audit',
-    category: 'Security & Hardening',
-    icon: '🛡️',
-    basePrice: '$16,000',
-    description: 'End-to-end security architecture with mTLS, automated penetration testing, secrets rotation, and SOC-2 audit compliance.',
-    deliverables: ['Zero-Trust Mesh & Encrypted Network Access', 'OAuth 2.1 & WebAuthn / Passkey Security', 'Penetration Testing & Vulnerability Assessment', 'HashiCorp Vault Secrets Management', 'Compliance Audit Documentation Pack'],
-    defaultTimeline: '4-6 Weeks'
-  },
-  {
-    id: 'devops-infra',
-    name: 'GitOps, Kubernetes & Self-Healing Infra',
-    category: 'DevOps & SRE',
-    icon: '⚙️',
-    basePrice: '$12,500',
-    description: 'Infrastructure as Code automation via Terraform and ArgoCD with Prometheus observability and self-healing clusters.',
-    deliverables: ['Terraform Modular Multi-Region IaC', 'GitOps ArgoCD Synchronized Pipelines', 'Prometheus & Grafana Observability Dashboards', 'Automated Failover & Multi-Zone Backups', 'Cost Optimization & Cloud Spend Reduction'],
+    id: 'ecommerce',
+    name: 'E-Commerce & Online Stores',
+    category: 'Online Business',
+    icon: '🛒',
+    description: 'Complete online shops with product catalog, cart, checkout, local payment gateways (e.g. PayHere, Bank Transfer, Koko), and order management.',
+    deliverables: ['Product Catalog & Category Filtering', 'Shopping Cart & Secure Checkout', 'Local Payment Gateway Integration', 'Customer Accounts & Order History', 'Admin Inventory & Order Dashboard'],
     defaultTimeline: '3-5 Weeks'
+  },
+  {
+    id: 'cloud-hosting',
+    name: 'Cloud Hosting, Domain & Server Setup',
+    category: 'Infrastructure',
+    icon: '☁️',
+    description: 'Reliable cloud server hosting, custom domain configuration (.lk / .com), SSL security, and continuous server monitoring.',
+    deliverables: ['Domain Name Registration & DNS Setup', 'Free High-Security SSL Certificates', 'Automated Daily Database Backups', 'Fast SSD Cloud Server Hosting', '24/7 Server Uptime Monitoring'],
+    defaultTimeline: '1-2 Weeks'
+  },
+  {
+    id: 'api-automation',
+    name: 'API Integrations & Automation',
+    category: 'System Integration',
+    icon: '⚡',
+    description: 'Connect your software with SMS gateways (NotifyLK, Mobitel), WhatsApp API, accounting tools, and external services.',
+    deliverables: ['Automated SMS & WhatsApp Alerts', 'Third-Party REST API Connectors', 'Spreadsheet / Excel Data Sync', 'Automated Daily Email Reports', 'Custom Webhooks & Triggers'],
+    defaultTimeline: '1-3 Weeks'
+  },
+  {
+    id: 'maintenance',
+    name: 'Website Maintenance & Technical Support',
+    category: 'Ongoing Support',
+    icon: '⚙️',
+    description: 'Keep your website and business software bug-free, updated, and secure with dedicated ongoing technical support.',
+    deliverables: ['Routine Security Patches & Updates', 'Bug Fixes & Speed Optimization', 'Content & Image Updates', 'Monthly Performance Health Checks', 'Direct Phone & WhatsApp Support'],
+    defaultTimeline: 'Monthly Retainer'
   }
 ];
 
 export default function OrderServiceModal({ isOpen, initialService, onClose, onOrderPlaced }) {
   const [selectedServiceId, setSelectedServiceId] = useState(() => initialService?.id || SOFTWARE_SERVICES[0].id);
-  const [tier, setTier] = useState('Production Core Architecture');
-  const [timeline, setTimeline] = useState('Standard (6-8 Weeks)');
+  const [timeline, setTimeline] = useState('Standard (2-4 Weeks)');
   const [formData, setFormData] = useState({
     customerName: '',
     customerEmail: '',
@@ -95,7 +88,7 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
         company: formData.company,
         serviceId: currentService.id,
         serviceName: currentService.name,
-        tier,
+        tier: 'Standard Project',
         timeline,
         requirements: formData.requirements
       };
@@ -108,7 +101,7 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
 
       const data = await res.json();
       if (!res.ok || !data.success) {
-        throw new Error(data.error || 'Failed to place service order.');
+        throw new Error(data.error || 'Failed to submit service order.');
       }
 
       setSuccessOrder(data.order);
@@ -126,9 +119,9 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
         {/* Header */}
         <div className="order-modal-header">
           <div className="order-modal-title-group">
-            <span className="order-modal-badge">Direct Service Provisioning</span>
-            <h2>Order Aveniq Software Engineering</h2>
-            <p>Deploy specialized architectural capabilities directly to your enterprise pipeline.</p>
+            <span className="order-modal-badge">Service Request</span>
+            <h2>Order Software or Web Service</h2>
+            <p>Select the service your business needs and submit your details to get started.</p>
           </div>
           <button type="button" className="order-modal-close" onClick={onClose}>✕</button>
         </div>
@@ -136,16 +129,16 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
         {successOrder ? (
           <div className="order-success-screen">
             <div className="order-success-icon">✓</div>
-            <h3>Service Order Confirmed!</h3>
+            <h3>Service Request Received!</h3>
             <p className="order-ref-text">Order Reference: <strong>{successOrder.id}</strong></p>
             <div className="order-success-summary">
               <div><strong>Service:</strong> {successOrder.serviceName}</div>
-              <div><strong>Package:</strong> {successOrder.tier}</div>
+              <div><strong>Target Timeline:</strong> {successOrder.timeline}</div>
               <div><strong>Client:</strong> {successOrder.customerName} ({successOrder.customerEmail})</div>
               <div><strong>Status:</strong> <span className="order-status-pill">{successOrder.status}</span></div>
             </div>
             <p className="order-instructions-text">
-              Your order has been transmitted directly to our Chief Systems Architect. Our engineering team will review your specifications and follow up within 2 hours.
+              Thank you! Our Sri Lankan software team has received your order. We will review your requirements and contact you directly via phone or WhatsApp shortly.
             </p>
             <div className="order-success-actions">
               <button
@@ -159,9 +152,9 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
           </div>
         ) : (
           <form onSubmit={handleSubmit} className="order-modal-body">
-            {/* Service Selection Carousel / Cards */}
+            {/* Service Selection */}
             <div className="order-service-selection">
-              <label className="order-field-label">1. Choose Service Architecture</label>
+              <label className="order-field-label">1. Choose Service</label>
               <div className="order-services-carousel">
                 {SOFTWARE_SERVICES.map((srv) => (
                   <div
@@ -172,7 +165,7 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
                     <div className="order-choice-icon">{srv.icon}</div>
                     <div className="order-choice-info">
                       <div className="order-choice-name">{srv.name}</div>
-                      <div className="order-choice-price">Starting from {srv.basePrice}</div>
+                      <div className="order-choice-price" style={{ color: 'var(--text-muted)' }}>{srv.category}</div>
                     </div>
                   </div>
                 ))}
@@ -193,38 +186,25 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
               </div>
             </div>
 
-            {/* Configuration Row */}
-            <div className="order-config-grid">
+            {/* Target Delivery Timeline */}
+            <div className="order-config-grid" style={{ gridTemplateColumns: '1fr' }}>
               <div className="order-config-col">
-                <label className="order-field-label">2. Architectural Tier</label>
-                <select
-                  value={tier}
-                  onChange={(e) => setTier(e.target.value)}
-                  className="order-select-input"
-                >
-                  <option value="Proof of Concept (POC / Prototype)">Proof of Concept (POC / Prototype)</option>
-                  <option value="Production Core Architecture">Production Core Architecture (Standard)</option>
-                  <option value="Enterprise Mission-Critical Scale">Enterprise Mission-Critical Scale (Full Suite)</option>
-                </select>
-              </div>
-
-              <div className="order-config-col">
-                <label className="order-field-label">3. Target Delivery Timeline</label>
+                <label className="order-field-label">2. Target Completion Timeline</label>
                 <select
                   value={timeline}
                   onChange={(e) => setTimeline(e.target.value)}
                   className="order-select-input"
                 >
-                  <option value="Fast-Track Sprint (2-4 Weeks)">Fast-Track Sprint (2-4 Weeks)</option>
-                  <option value="Standard (6-8 Weeks)">Standard ({currentService.defaultTimeline})</option>
-                  <option value="Quarterly Enterprise Milestone (10-14 Weeks)">Quarterly Enterprise Milestone (10-14 Weeks)</option>
+                  <option value="Urgent / Fast-Track (1-2 Weeks)">Urgent / Fast-Track (1-2 Weeks)</option>
+                  <option value="Standard (2-4 Weeks)">Standard (2-4 Weeks)</option>
+                  <option value="Flexible / As Discussed">Flexible / As Discussed</option>
                 </select>
               </div>
             </div>
 
             {/* Customer Contact Details */}
             <div className="order-customer-details">
-              <label className="order-field-label">4. Your Organization & Contact Info</label>
+              <label className="order-field-label">3. Your Contact Information</label>
               <div className="order-inputs-grid">
                 <div>
                   <input
@@ -240,7 +220,7 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
                   <input
                     type="email"
                     required
-                    placeholder="Work Email *"
+                    placeholder="Email Address *"
                     value={formData.customerEmail}
                     onChange={(e) => setFormData({ ...formData, customerEmail: e.target.value })}
                     className="order-text-input"
@@ -249,7 +229,8 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
                 <div>
                   <input
                     type="tel"
-                    placeholder="Phone / WhatsApp (Optional)"
+                    required
+                    placeholder="Phone / WhatsApp Number *"
                     value={formData.customerPhone}
                     onChange={(e) => setFormData({ ...formData, customerPhone: e.target.value })}
                     className="order-text-input"
@@ -258,7 +239,7 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
                 <div>
                   <input
                     type="text"
-                    placeholder="Company / Organization Name"
+                    placeholder="Company / Business Name"
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                     className="order-text-input"
@@ -269,10 +250,10 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
 
             {/* Custom Scope / Technical Notes */}
             <div className="order-requirements-group">
-              <label className="order-field-label">5. Technical Scope & Requirements (Optional)</label>
+              <label className="order-field-label">4. Project Details & Special Requirements</label>
               <textarea
                 rows="3"
-                placeholder="Mention any specific requirements, integrations (e.g. AWS, Stripe, Kafka), or APIs your system requires..."
+                placeholder="Tell us about your business, specific pages, features, or design preferences..."
                 value={formData.requirements}
                 onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
                 className="order-textarea-input"
@@ -297,7 +278,7 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
                 disabled={submitting}
                 className="btn btn-primary order-submit-action"
               >
-                {submitting ? 'Transmitting Order...' : `Confirm & Place Service Order (${currentService.basePrice}) →`}
+                {submitting ? 'Submitting Order...' : 'Submit Service Order →'}
               </button>
             </div>
           </form>

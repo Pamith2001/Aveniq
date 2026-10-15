@@ -3,74 +3,75 @@ import logoDark from './assets/logo-dark.jpg';
 import logoLight from './assets/logo-light.jpg';
 import ChatWidget from './ChatWidget.jsx';
 import AdminPortal from './AdminPortal.jsx';
+import ClientPortal from './ClientPortal.jsx';
 import OrderServiceModal, { SOFTWARE_SERVICES } from './OrderServiceModal.jsx';
 import './App.css';
 
-// Direct Contact details for the Startup Owner
+// Direct Contact details for the Software Company
 const OWNER_CONTACT = {
-  phoneDisplay: '+1 (800) 849-AVENIQ',
-  phoneCall: '+18008492836',
-  whatsappNumber: '18008492836',
-  email: 'founder@aveniq.io',
-  office: 'Silicon Valley, CA • Global Engineering Hub'
+  phoneDisplay: '+94 77 123 4567',
+  phoneCall: '+94771234567',
+  whatsappNumber: '94771234567',
+  email: 'info@aveniq.lk',
+  office: 'Colombo, Sri Lanka'
 };
 
 const SERVICES_DATA = [
   {
-    id: 'ai-agents',
-    name: 'Autonomous AI & LLM Systems',
-    icon: '⚡',
-    summary: 'Custom intelligent agents, domain-tuned LLMs, neural search engines, and automated multi-agent workflow orchestration.',
-    features: ['Custom RAG & Multi-Agent Pipelines', 'Fine-tuned LLM Deployment', 'Autonomous Data Extraction', 'Real-time Vector Search'],
-    tech: ['PyTorch', 'LangChain', 'Llama 3', 'Pinecone']
-  },
-  {
-    id: 'cloud-saas',
-    name: 'Cloud-Native SaaS Platforms',
-    icon: '☁️',
-    summary: 'High-throughput, multi-tenant enterprise software architectures built for 99.999% uptime and hyper-scale resilience.',
-    features: ['Kubernetes Microservices', 'Serverless Edge Functions', 'Zero-Downtime CI/CD', 'Automated Horizontal Scaling'],
-    tech: ['Docker', 'AWS / GCP', 'Terraform', 'Go / Node']
-  },
-  {
     id: 'web-mobile',
-    name: 'Next-Gen Web & Mobile Apps',
+    name: 'Web & Mobile App Development',
     icon: '🚀',
-    summary: 'Ultra-fluid, high-performance cross-platform software with responsive design, instant reactivity, and biometric security.',
-    features: ['React & Next.js Ecosystems', 'React Native / Flutter Apps', 'Offline-First Architectures', 'Sub-millisecond State Sync'],
-    tech: ['React 19', 'TypeScript', 'Tailwind', 'GraphQL']
+    summary: 'Custom responsive websites, business portals, web applications, and mobile solutions tailored for your business.',
+    features: ['Responsive UI on Mobile & Desktop', 'Fast Performance & Clean Code', 'Search Engine Optimization (SEO)', 'WhatsApp Direct Chat & Forms'],
+    tech: ['React.js', 'Node.js', 'HTML5 / CSS3', 'Bootstrap / Tailwind']
   },
   {
-    id: 'data-pipelines',
-    name: 'Real-Time Streaming & Big Data',
-    icon: '📊',
-    summary: 'Distributed event-driven data streaming pipelines that ingest millions of events per second with real-time analytics.',
-    features: ['Apache Kafka Event Buses', 'Real-time WebSocket Feeds', 'Data Lakehouse Architecture', 'Automated ETL Pipelines'],
-    tech: ['Kafka', 'ClickHouse', 'PostgreSQL', 'Redis']
+    id: 'custom-software',
+    name: 'Business Management Software',
+    icon: '💻',
+    summary: 'Tailor-made software for inventory management, billing, invoicing, and POS systems for local businesses.',
+    features: ['Stock & Inventory Tracking', 'Invoicing & Receipt Printing', 'User Roles & Security Access', 'Sales Reports & Analytics'],
+    tech: ['Node.js', 'Express', 'MySQL / PostgreSQL', 'React']
   },
   {
-    id: 'cybersecurity',
-    name: 'Zero-Trust Cyber Architecture',
-    icon: '🛡️',
-    summary: 'Military-grade end-to-end encryption, automated vulnerability scanners, identity federation, and SOC2/HIPAA compliance.',
-    features: ['Zero-Trust Network Access', 'OAuth 2.1 & Passkey Auth', 'Penetration Testing & Hardening', 'Audit Trail Automation'],
-    tech: ['mTLS', 'Vault', 'OpenID Connect', 'OWASP']
+    id: 'ecommerce',
+    name: 'E-Commerce & Online Stores',
+    icon: '🛒',
+    summary: 'Build and launch your online store with product catalogs, shopping cart, and Sri Lankan payment gateway integration.',
+    features: ['Product Management & Categories', 'Shopping Cart & Orders', 'Local Payment Gateway Support', 'Order Email Notifications'],
+    tech: ['React', 'Payment Gateways', 'Node.js', 'REST APIs']
   },
   {
-    id: 'devops-infra',
-    name: 'DevOps & Infrastructure Automation',
+    id: 'cloud-hosting',
+    name: 'Domain, Hosting & Cloud Setup',
+    icon: '☁️',
+    summary: 'Fast SSD web hosting, .LK or .COM domain setup, business email configuration, and free SSL certificates.',
+    features: ['.LK / .COM Domain Setup', 'Business Email (Google/cPanel)', 'Free SSL Security', 'Daily Automated Backups'],
+    tech: ['cPanel', 'Cloud Hosting', 'SSL', 'DNS Config']
+  },
+  {
+    id: 'api-automation',
+    name: 'SMS & WhatsApp Integrations',
+    icon: '⚡',
+    summary: 'Automate your customer communication with instant SMS notifications and WhatsApp message alerts.',
+    features: ['Sri Lankan SMS Gateway Setup', 'WhatsApp Order Notifications', 'Excel / Spreadsheet Sync', 'Automated Daily Reports'],
+    tech: ['SMS Gateways', 'REST APIs', 'Webhooks', 'JavaScript']
+  },
+  {
+    id: 'maintenance',
+    name: 'Website Maintenance & Support',
     icon: '⚙️',
-    summary: 'Automate deployment pipelines, infrastructure as code, continuous observability, and self-healing cluster operations.',
-    features: ['GitOps Deployment Pipelines', 'Prometheus & Grafana Telemetry', 'Cost Optimization Auditing', 'Disaster Recovery Protocols'],
-    tech: ['ArgoCD', 'Prometheus', 'Helm', 'Datadog']
+    summary: 'Continuous technical support, website updates, bug fixing, and security monitoring for peace of mind.',
+    features: ['Routine Software Updates', 'Bug Fixes & Speed Tuning', 'Content & Image Updates', 'Direct Phone & WhatsApp Support'],
+    tech: ['Support', 'Security', 'Monitoring', 'Optimization']
   }
 ];
 
 const TECH_STACK = [
-  { category: 'Frontend', items: ['React 19', 'Next.js 15', 'TypeScript', 'Vite', 'WebAssembly', 'Tailwind CSS'] },
-  { category: 'Backend & APIs', items: ['Node.js', 'Go (Golang)', 'Python FastApi', 'Rust', 'GraphQL', 'gRPC'] },
-  { category: 'AI & Data', items: ['PyTorch', 'OpenAI / Claude APIs', 'PostgreSQL', 'Redis', 'Milvus / Pinecone', 'Kafka'] },
-  { category: 'Cloud & Infrastructure', items: ['Kubernetes', 'Docker', 'AWS / Google Cloud', 'Terraform', 'Cloudflare Workers', 'GitHub Actions'] }
+  { category: 'Frontend', items: ['React.js', 'JavaScript', 'HTML5 & CSS3', 'Tailwind CSS', 'Bootstrap', 'Vite'] },
+  { category: 'Backend & APIs', items: ['Node.js', 'Express.js', 'REST APIs', 'Authentication', 'WebSockets', 'PHP'] },
+  { category: 'Databases', items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis'] },
+  { category: 'Hosting & Tools', items: ['Linux Cloud Servers', 'cPanel / DirectAdmin', 'GitHub', 'SSL / HTTPS', 'Domain Management'] }
 ];
 
 export default function App() {
@@ -89,28 +90,27 @@ export default function App() {
     return <AdminPortal />;
   }
 
+  // Client Portal route: Customers login to track their project progress
+  if (currentPath === '/client-portal' || currentPath === '/progress' || currentPath === '/client' || window.location.hash === '#client') {
+    return <ClientPortal onBackToWebsite={() => { window.location.href = '/'; }} />;
+  }
+
   const [theme, setTheme] = useState('dark');
   const [activePhraseIndex, setActivePhraseIndex] = useState(0);
   const phrases = [
-    'Autonomous AI & Intelligent Agents',
-    'Hyper-Scalable Cloud Microservices',
-    'Mission-Critical Enterprise SaaS',
-    'High-Velocity Software Engineering'
+    'Custom Web & Mobile Applications',
+    'Business Management & POS Software',
+    'E-Commerce & Online Store Solutions',
+    'Reliable Software Services in Sri Lanka'
   ];
 
-  // Estimator State
-  const [estService, setEstService] = useState('Enterprise SaaS Platform');
-  const [estScale, setEstScale] = useState('Growth Enterprise');
-  const [estTimeline, setEstTimeline] = useState('8-12 Weeks');
-
-  // Contact Form State
+  // Contact Form State (Without budget)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
     company: '',
-    service: 'Autonomous AI & LLM Systems',
-    budget: '$15,000 - $35,000',
+    service: 'Web & Mobile App Development',
     message: ''
   });
   const [formStatus, setFormStatus] = useState({ loading: false, success: false, error: null, refId: null });
@@ -122,6 +122,11 @@ export default function App() {
   const [selectedOrderService, setSelectedOrderService] = useState(null);
   const [inquiries, setInquiries] = useState([]);
   const [inquiriesLoading, setInquiriesLoading] = useState(false);
+
+  // Project Estimator / Scoper State
+  const [estService, setEstService] = useState('Web & Mobile App');
+  const [estScale, setEstScale] = useState('Small Business / Startup');
+  const [estTimeline, setEstTimeline] = useState('Standard (2-4 Weeks)');
 
   // Canvas Ref for futuristic neural background
   const canvasRef = useRef(null);
@@ -301,8 +306,7 @@ export default function App() {
         email: '',
         phone: '',
         company: '',
-        service: 'Autonomous AI & LLM Systems',
-        budget: '$15,000 - $35,000',
+        service: 'Web & Mobile App Development',
         message: ''
       });
     } catch (err) {
@@ -357,9 +361,8 @@ export default function App() {
   const applyEstimateToForm = () => {
     setFormData((prev) => ({
       ...prev,
-      service: estService,
-      budget: estScale === 'Startup MVP' ? '$10,000 - $25,000' : estScale === 'Growth Enterprise' ? '$30,000 - $65,000' : '$75,000+',
-      message: `Project Requirement: ${estService} at ${estScale} scale. Desired timeline: ${estTimeline}. Please provide an architecture proposal and discovery roadmap.`
+      service: estService === 'Web & Mobile App' ? 'Web & Mobile App Development' : estService === 'Business Management Software' ? 'Business Management Software' : estService === 'E-Commerce Store' ? 'E-Commerce & Online Stores' : 'Domain, Hosting & Cloud Setup',
+      message: `Project Requirement: ${estService} for ${estScale}. Preferred timeline: ${estTimeline}. Please contact me to discuss details.`
     }));
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -396,11 +399,11 @@ export default function App() {
 
           <nav>
             <ul className="nav-links">
-              <li><a href="#services" className="nav-link">Services</a></li>
-              <li><a href="#estimator" className="nav-link">Architecture Estimator</a></li>
-              <li><a href="#tech-stack" className="nav-link">Tech Radar</a></li>
-              <li><a href="#owner-connect" className="nav-link">Direct Owner Contact</a></li>
-              <li><a href="#contact" className="nav-link">Start Project</a></li>
+              <li><a href="#services" className="nav-link">Our Services</a></li>
+              <li><a href="#estimator" className="nav-link">Project Scoper</a></li>
+              <li><a href="#tech-stack" className="nav-link">Technologies</a></li>
+              <li><a href="#owner-connect" className="nav-link">Contact Us</a></li>
+              <li><a href="#contact" className="nav-link">Inquiry</a></li>
             </ul>
           </nav>
 
@@ -437,6 +440,15 @@ export default function App() {
               )}
             </button>
 
+            <a
+              href="/client-portal"
+              className="btn btn-secondary"
+              id="nav-client-portal-btn"
+              style={{ padding: '8px 14px', fontSize: '0.84rem' }}
+            >
+              📂 Client Login
+            </a>
+
             {/* Order Services direct CTA */}
             <button
               onClick={() => {
@@ -447,11 +459,11 @@ export default function App() {
               id="nav-order-btn"
               style={{ padding: '8px 16px', fontSize: '0.85rem' }}
             >
-              ⚡ Order Architecture
+              🛒 Order Service
             </button>
 
-            <a href="#contact" className="btn btn-secondary" id="nav-cta-btn" style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
-              Custom Inquiry
+            <a href="#contact" className="btn btn-secondary" id="nav-cta-btn" style={{ padding: '8px 14px', fontSize: '0.84rem' }}>
+              Inquiry
             </a>
           </div>
         </div>
@@ -467,16 +479,16 @@ export default function App() {
             <div className="hero-badge-row">
               <span className="badge-pill">
                 <span className="pulse-dot"></span>
-                Next-Gen Startup Software Lab
+                Software & Web Development in Sri Lanka
               </span>
             </div>
 
             <h1 className="hero-title">
-              Engineering <span className="gradient-text glow-text">Autonomous Software</span> for Tomorrow's Giants
+              Reliable <span className="gradient-text glow-text">Software & Web Solutions</span> for Your Business
             </h1>
 
             <p className="hero-subtext">
-              Aveniq architects mission-critical digital systems, high-velocity cloud infrastructures, and domain-intelligent AI agents designed for boundless scale.
+              We design and build modern websites, business management systems, POS software, and mobile applications to help Sri Lankan businesses grow.
             </p>
 
             <div className="hero-cta-group">
@@ -489,12 +501,12 @@ export default function App() {
                 className="btn btn-primary"
                 id="hero-order-service-btn"
               >
-                <span>🛒 Order Software / Service</span>
+                <span>🛒 Order Service Online</span>
                 <span>→</span>
               </button>
 
               <a href="#contact" className="btn btn-secondary" id="hero-get-started-btn">
-                <span>Custom Proposal</span>
+                <span>Request a Quote</span>
               </a>
 
               <a
@@ -504,7 +516,7 @@ export default function App() {
                 className="btn btn-accent"
                 id="hero-whatsapp-btn"
               >
-                <span>💬 WhatsApp Lead</span>
+                <span>💬 WhatsApp Us</span>
               </a>
             </div>
 
@@ -584,12 +596,12 @@ export default function App() {
       <section className="section" id="services">
         <div className="container">
           <div className="section-header">
-            <span className="badge-pill">Capabilities</span>
+            <span className="badge-pill">What We Offer</span>
             <h2 className="section-title">
-              Futuristic Engineering Across the <span className="gradient-text">Entire Software Stack</span>
+              Software Services Tailored for <span className="gradient-text">Your Business Growth</span>
             </h2>
             <p className="section-desc">
-              From autonomous reasoning agents to battle-tested microservice clusters, we build custom digital powerhouses engineered for high performance.
+              From business websites to custom billing and inventory systems, we build practical, dependable software solutions.
             </p>
           </div>
 
@@ -633,26 +645,26 @@ export default function App() {
       </section>
 
       {/* ====================================================================
-          Interactive Architecture Estimator
+          Project Scoper Section
           ==================================================================== */}
       <section className="section" id="estimator" style={{ background: 'var(--bg-surface)' }}>
         <div className="container">
           <div className="section-header">
-            <span className="badge-pill">Interactive Scoper</span>
+            <span className="badge-pill">Project Scoper</span>
             <h2 className="section-title">
-              Estimate Your <span className="gradient-text">Software Architecture Scope</span>
+              Configure Your <span className="gradient-text">Project Requirements</span>
             </h2>
             <p className="section-desc">
-              Configure your system requirements to preview engineering timelines, architecture blueprints, and budget expectations.
+              Select your required software service, company size, and delivery timeline to plan your development roadmap.
             </p>
           </div>
 
           <div className="estimator-container">
             <div className="glass-card calc-panel">
               <div className="calc-group">
-                <label className="calc-label">1. Primary System Architecture</label>
+                <label className="calc-label">1. Primary Software Service</label>
                 <div className="pill-selector-row">
-                  {['Autonomous AI & Agents', 'Enterprise SaaS Platform', 'High-Speed Web/Mobile', 'Cloud Data Lake'].map((srv) => (
+                  {['Web & Mobile App', 'Business Management Software', 'E-Commerce Store', 'Cloud & Hosting'].map((srv) => (
                     <button
                       key={srv}
                       type="button"
@@ -666,9 +678,9 @@ export default function App() {
               </div>
 
               <div className="calc-group">
-                <label className="calc-label">2. Target Deployment Scale</label>
+                <label className="calc-label">2. Business Scale</label>
                 <div className="pill-selector-row">
-                  {['Startup MVP', 'Growth Enterprise', 'Tier-1 High Availability'].map((scale) => (
+                  {['Small Business / Startup', 'Medium Enterprise', 'Established Company'].map((scale) => (
                     <button
                       key={scale}
                       type="button"
@@ -682,9 +694,9 @@ export default function App() {
               </div>
 
               <div className="calc-group">
-                <label className="calc-label">3. Target Velocity & Timeline</label>
+                <label className="calc-label">3. Desired Completion Timeline</label>
                 <div className="pill-selector-row">
-                  {['Rapid Sprint (4-6 Wks)', 'Standard (8-12 Wks)', 'Enterprise Phased (16+ Wks)'].map((t) => (
+                  {['Fast-Track (1-2 Weeks)', 'Standard (2-4 Weeks)', 'Full Phase (4-8 Weeks)'].map((t) => (
                     <button
                       key={t}
                       type="button"
@@ -698,32 +710,32 @@ export default function App() {
               </div>
             </div>
 
-            {/* Estimator Summary Output */}
+            {/* Scoper Summary Output */}
             <div className="glass-card calc-summary-card">
-              <h3 className="summary-headline">Architecture Forecast</h3>
+              <h3 className="summary-headline">Project Overview</h3>
               <div className="estimate-output-box">
-                <div className="est-amount">
-                  {estScale === 'Startup MVP' ? '$15k - $28k' : estScale === 'Growth Enterprise' ? '$35k - $65k' : '$75k - $140k+'}
+                <div className="est-amount" style={{ fontSize: '1.25rem' }}>
+                  {estService}
                 </div>
-                <div className="est-timeline">Estimated Roadmap: {estTimeline}</div>
+                <div className="est-timeline" style={{ marginTop: '6px' }}>Target Delivery: {estTimeline}</div>
               </div>
 
               <ul className="est-deliverables">
                 <li className="est-deliverable-item">
                   <span style={{ color: 'var(--brand-cyan)' }}>✦</span>
-                  <span>Fully modular, clean React/Node/Cloud codebase</span>
+                  <span>Modern, clean and responsive web & mobile UI</span>
                 </li>
                 <li className="est-deliverable-item">
                   <span style={{ color: 'var(--brand-cyan)' }}>✦</span>
-                  <span>Automated CI/CD deployment pipeline with Docker</span>
+                  <span>Complete source code and full ownership</span>
                 </li>
                 <li className="est-deliverable-item">
                   <span style={{ color: 'var(--brand-cyan)' }}>✦</span>
-                  <span>Dedicated direct channel with Aveniq Founding Team</span>
+                  <span>Direct phone & WhatsApp technical support</span>
                 </li>
                 <li className="est-deliverable-item">
                   <span style={{ color: 'var(--brand-cyan)' }}>✦</span>
-                  <span>100% IP ownership and comprehensive architecture docs</span>
+                  <span>Free deployment, domain and SSL setup support</span>
                 </li>
               </ul>
 
@@ -734,7 +746,7 @@ export default function App() {
                 style={{ width: '100%' }}
                 id="apply-estimate-btn"
               >
-                Transfer to Direct Inquiry →
+                Send as Project Inquiry →
               </button>
             </div>
           </div>
@@ -958,33 +970,17 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="form-grid-2">
-                  <div className="form-field">
-                    <label className="form-field-label">Primary Service</label>
-                    <select
-                      className="input-control"
-                      value={formData.service}
-                      onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                    >
-                      {SERVICES_DATA.map((s) => (
-                        <option key={s.id} value={s.name}>{s.name}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  <div className="form-field">
-                    <label className="form-field-label">Budget Tier</label>
-                    <select
-                      className="input-control"
-                      value={formData.budget}
-                      onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    >
-                      <option value="$10,000 - $25,000">$10,000 - $25,000 (MVP)</option>
-                      <option value="$25,000 - $50,000">$25,000 - $50,000 (Growth)</option>
-                      <option value="$50,000 - $100,000">$50,000 - $100,000 (Scale)</option>
-                      <option value="$100,000+">$100,000+ (Enterprise)</option>
-                    </select>
-                  </div>
+                <div className="form-field">
+                  <label className="form-field-label">Primary Service</label>
+                  <select
+                    className="input-control"
+                    value={formData.service}
+                    onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                  >
+                    {SERVICES_DATA.map((s) => (
+                      <option key={s.id} value={s.name}>{s.name}</option>
+                    ))}
+                  </select>
                 </div>
 
                 <div className="form-field">

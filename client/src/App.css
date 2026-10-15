@@ -2525,3 +2525,607 @@ textarea.input-control {
   color: #10b981;
 }
 
+/* ==========================================================================
+   Client Portal & Project Progress Tracker Styling
+   ========================================================================== */
+.client-login-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #0f172a 0%, #030712 100%);
+  padding: 24px;
+  font-family: var(--font-sans, sans-serif);
+}
+
+.client-login-card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 229, 255, 0.15);
+  border-radius: 24px;
+  padding: 38px 32px;
+  backdrop-filter: blur(20px);
+}
+
+.client-login-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.client-portal-shield {
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+
+.client-login-header h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.35rem;
+  color: #00e5ff;
+  letter-spacing: 0.08em;
+}
+
+.client-login-header p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.45;
+}
+
+.client-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.client-form-group label {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 6px;
+}
+
+.client-login-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 0.92rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.client-login-input:focus {
+  border-color: #00e5ff;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.25);
+}
+
+.client-error-box {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.84rem;
+}
+
+.client-login-btn {
+  background: linear-gradient(135deg, #00e5ff 0%, #2979ff 100%);
+  color: #000;
+  border: none;
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.client-login-btn:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.client-login-footer {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.78rem;
+}
+
+.client-back-website-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+}
+
+.client-back-website-btn:hover {
+  color: #00e5ff;
+}
+
+.client-demo-hint code {
+  color: #00e5ff;
+  background: rgba(0, 229, 255, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Client Portal Dashboard Container */
+.client-portal-container {
+  min-height: 100vh;
+  background: #060b13;
+  color: #e2e8f0;
+  font-family: var(--font-sans, sans-serif);
+  display: flex;
+  flex-direction: column;
+}
+
+.client-portal-header {
+  height: 70px;
+  background: #0d1527;
+  border-bottom: 1px solid rgba(0, 229, 255, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.client-header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.client-pulse-dot {
+  width: 9px;
+  height: 9px;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #10b981;
+}
+
+.client-brand-title {
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 0.1em;
+  color: #fff;
+}
+
+.client-badge {
+  background: rgba(0, 229, 255, 0.15);
+  color: #00e5ff;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  font-size: 0.7rem;
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.client-header-user {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.client-user-meta {
+  text-align: right;
+}
+
+.client-user-name {
+  color: #fff;
+  font-size: 0.95rem;
+  display: block;
+}
+
+.client-user-company {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+}
+
+.client-actions-group {
+  display: flex;
+  gap: 10px;
+}
+
+.client-refresh-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.client-logout-btn {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.client-portal-main {
+  flex: 1;
+  padding: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.client-welcome-banner {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.08) 0%, rgba(41, 121, 255, 0.08) 100%);
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 20px;
+  padding: 28px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.client-welcome-banner h2 {
+  margin: 0 0 6px 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.client-welcome-banner p {
+  margin: 0;
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.client-stats-summary-box {
+  display: flex;
+  gap: 20px;
+}
+
+.client-stat-item {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.client-stat-item .stat-num {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #00e5ff;
+  display: block;
+}
+
+.client-stat-item .stat-lbl {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.6);
+  text-transform: uppercase;
+}
+
+.client-section-heading {
+  font-size: 1.25rem;
+  color: #fff;
+  margin: 0 0 20px 0;
+}
+
+.client-empty-projects {
+  text-align: center;
+  padding: 60px 20px;
+  background: #0b1222;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.client-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(460px, 1fr));
+  gap: 24px;
+}
+
+.client-project-card {
+  background: #0d1629;
+  border: 1px solid rgba(0, 229, 255, 0.2);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.client-proj-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.client-proj-tag-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.client-proj-id {
+  font-family: monospace;
+  font-size: 0.76rem;
+  background: rgba(0, 229, 255, 0.15);
+  color: #00e5ff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.client-proj-category {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.client-proj-title {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.client-status-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(0, 229, 255, 0.15);
+  color: #00e5ff;
+  border: 1px solid rgba(0, 229, 255, 0.3);
+}
+
+.client-progress-box {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 16px;
+  border-radius: 14px;
+}
+
+.client-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.client-progress-lbl {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.client-progress-val {
+  font-size: 1.4rem;
+  font-weight: 800;
+  font-family: monospace;
+}
+
+.client-progress-bar-bg {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.client-progress-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.client-timeline-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  padding: 4px 0;
+}
+
+.timeline-lbl {
+  color: rgba(255, 255, 255, 0.55);
+  margin-right: 6px;
+}
+
+.timeline-val {
+  color: #fff;
+  font-weight: 600;
+}
+
+.timeline-val.highlight {
+  color: #00e5ff;
+}
+
+.client-update-box {
+  background: rgba(0, 229, 255, 0.06);
+  border-left: 3px solid #00e5ff;
+  padding: 10px 14px;
+  border-radius: 0 10px 10px 0;
+}
+
+.update-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #00e5ff;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.update-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+  line-height: 1.4;
+}
+
+.client-notes-box {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 10px 14px;
+  border-radius: 10px;
+}
+
+.notes-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 3px;
+}
+
+.notes-text {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   Admin Projects & Client Modals
+   ========================================================================== */
+.admin-tab-content-container {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.admin-section-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-section-header-bar h3 {
+  margin: 0 0 4px 0;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+.admin-section-header-bar p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.admin-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+  gap: 20px;
+}
+
+.admin-project-manage-card {
+  background: #0c1424;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.admin-proj-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.admin-percent-slider-box {
+  background: rgba(0, 0, 0, 0.35);
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.admin-edit-field {
+  width: 100%;
+  padding: 8px 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 0.82rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.admin-edit-field:focus {
+  border-color: #00e5ff;
+}
+
+/* Modals */
+.admin-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 7, 18, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.admin-modal-window {
+  width: 100%;
+  max-width: 580px;
+  background: #0e172a;
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  border-radius: 20px;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+}
+
+.admin-modal-top {
+  padding: 18px 24px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.admin-modal-top h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.admin-modal-close-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.admin-modal-form {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.admin-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+
