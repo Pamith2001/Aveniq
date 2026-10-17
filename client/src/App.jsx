@@ -106,7 +106,16 @@ export default function App() {
   }
 
   const [theme, setTheme] = useState(() => {
-    return localStorage.getItem('aveniq_theme') || 'light';
+    const saved = localStorage.getItem('aveniq_theme');
+    if (saved === 'dark' || saved === 'light') {
+      return saved;
+    }
+    // If device system preference is dark mode, adapt automatically
+    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+    // Default to clean light mode
+    return 'light';
   });
   const [activePhraseIndex, setActivePhraseIndex] = useState(0);
   const phrases = [
@@ -179,11 +188,31 @@ export default function App() {
   // Canvas Ref for futuristic neural background
   const canvasRef = useRef(null);
 
-  // Theme synchronization
+  // Theme synchronization to document root and storage
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
     localStorage.setItem('aveniq_theme', theme);
   }, [theme]);
+
+  // Listen to OS device theme changes (e.g. user toggles dark mode in their device settings)
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleDeviceThemeChange = (e) => {
+      // Automatically adapt to device mode switch
+      const newTheme = e.matches ? 'dark' : 'light';
+      setTheme(newTheme);
+    };
+
+    // Modern and fallback event listeners for OS media query
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleDeviceThemeChange);
+      return () => mediaQuery.removeEventListener('change', handleDeviceThemeChange);
+    } else if (mediaQuery.addListener) {
+      mediaQuery.addListener(handleDeviceThemeChange);
+      return () => mediaQuery.removeListener(handleDeviceThemeChange);
+    }
+  }, []);
 
   // Dynamic headline rotate
   useEffect(() => {
@@ -563,13 +592,24 @@ export default function App() {
             <div className="mobile-nav-drawer" onClick={(e) => e.stopPropagation()}>
               <div className="mobile-nav-header">
                 <span className="mobile-nav-title">Menu Navigation</span>
-                <button
-                  type="button"
-                  className="mobile-nav-close"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  ✕
-                </button>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <button
+                    onClick={toggleTheme}
+                    className="theme-toggle-btn"
+                    title="Toggle Dark / Light Mode"
+                    aria-label="Toggle Theme"
+                    style={{ padding: '6px 12px' }}
+                  >
+                    {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+                  </button>
+                  <button
+                    type="button"
+                    className="mobile-nav-close"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    ✕
+                  </button>
+                </div>
               </div>
 
               <ul className="mobile-nav-list">
