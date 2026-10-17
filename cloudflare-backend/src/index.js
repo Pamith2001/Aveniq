@@ -9,6 +9,21 @@ export class ChatRoomDO {
   }
 
   async fetch(request) {
+    const url = new URL(request.url);
+    if (url.pathname === '/broadcast' && request.method === 'POST') {
+      try {
+        const payload = await request.json();
+        if (payload?.sessionId) {
+          this.sendToSession(payload.sessionId, payload);
+        } else {
+          this.broadcastToRole('admin', payload);
+        }
+      } catch (e) {
+        console.error('Broadcast error:', e);
+      }
+      return new Response(JSON.stringify({ success: true }), { status: 200, headers: { 'Content-Type': 'application/json' } });
+    }
+
     const upgradeHeader = request.headers.get('Upgrade');
     if (!upgradeHeader || upgradeHeader.toLowerCase() !== 'websocket') {
       return new Response('Expected Upgrade: websocket', { status: 426 });
@@ -471,6 +486,120 @@ app.get('/api/chat/session/:sessionId', async (c) => {
   ).bind(sessionId).all();
 
   return c.json({ success: true, session: { ...session, messages: messages || [] } });
+});
+
+app.post('/api/chat/message', async (c) => {
+  const { sessionId, text, sender, clientName, clientEmail } = await c.req.json();
+  if (!sessionId || !text?.trim()) {
+    return c.json({ success: false, error: 'Session ID and message text are required.' }, 400);
+  }
+
+  const now = new Date().toISOString();
+  let session = await c.env.DB.prepare('SELECT * FROM chat_sessions WHERE sessionId = ?').bind(sessionId).first();
+
+  if (!session) {
+    await c.env.DB.prepare(`
+      INSERT INTO chat_sessions (sessionId, clientName, clientEmail, createdAt, updatedAt, unreadAdmin, unreadClient)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).bind(
+      sessionId,
+      clientName?.trim() || 'Visitor',
+      clientEmail?.trim() || '',
+      now,
+      now,
+      sender === 'client' ? 1 : 0,
+      sender === 'admin' ? 1 : 0
+    ).run();
+  } else {
+    const unreadAdminInc = sender === 'client' ? session.unreadAdmin + 1 : session.unreadAdmin;
+    const unreadClientInc = sender === 'admin' ? session.unreadClient + 1 : session.unreadClient;
+    const nameToUpdate = clientName && session.clientName === 'Visitor' ? clientName.trim() : session.clientName;
+    const emailToUpdate = clientEmail && !session.clientEmail ? clientEmail.trim() : session.clientEmail;
+
+    await c.env.DB.prepare(`
+      UPDATE chat_sessions
+      SET clientName = ?, clientEmail = ?, updatedAt = ?, unreadAdmin = ?, unreadClient = ?
+      WHERE sessionId = ?
+    `).bind(nameToUpdate, emailToUpdate, now, unreadAdminInc, unreadClientInc, sessionId).run();
+  }
+
+  const msgId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6);
+  await c.env.DB.prepare(`
+    INSERT INTO chat_messages (id, sessionId, sender, text, timestamp)
+    VALUES (?, ?, ?, ?, ?)
+  `).bind(msgId, sessionId, sender || 'client', text.trim(), now).run();
+
+  const updatedSession = await c.env.DB.prepare('SELECT * FROM chat_sessions WHERE sessionId = ?').bind(sessionId).first();
+  const newMsg = {
+    id: msgId,
+    sessionId,
+    sender: sender || 'client',
+    text: text.trim(),
+    timestamp: now
+  };
+
+  // Broadcast to live Durable Object WebSocket clients if available
+  try {
+    const id = c.env.CHAT_ROOM.idFromName('GLOBAL_CHAT_ROOM');
+    const chatRoom = c.env.CHAT_ROOM.get(id);
+    await chatRoom.fetch(new Request('http://internal/broadcast', {
+      method: 'POST',
+      body: JSON.stringify({
+        type: 'new_message',
+        sessionId,
+        message: newMsg,
+        sessionSummary: updatedSession
+      })
+    }));
+  } catch (err) {
+    // DO broadcast optional
+  }
+
+  return c.json({ success: true, message: newMsg, session: updatedSession }, 201);
+});
+
+app.post('/api/admin/reply', requireAdmin, async (c) => {
+  const { sessionId, text } = await c.req.json();
+  if (!sessionId || !text?.trim()) {
+    return c.json({ success: false, error: 'Session ID and message text are required.' }, 400);
+  }
+
+  const now = new Date().toISOString();
+  const msgId = 'msg_' + Date.now() + '_' + Math.random().toString(36).substring(2, 6);
+
+  await c.env.DB.prepare(`
+    INSERT INTO chat_messages (id, sessionId, sender, text, timestamp)
+    VALUES (?, ?, 'admin', ?, ?)
+  `).bind(msgId, sessionId, text.trim(), now).run();
+
+  await c.env.DB.prepare('UPDATE chat_sessions SET unreadAdmin = 0, updatedAt = ? WHERE sessionId = ?').bind(now, sessionId).run();
+  const session = await c.env.DB.prepare('SELECT * FROM chat_sessions WHERE sessionId = ?').bind(sessionId).first();
+
+  const newMsg = {
+    id: msgId,
+    sessionId,
+    sender: 'admin',
+    text: text.trim(),
+    timestamp: now
+  };
+
+  try {
+    const id = c.env.CHAT_ROOM.idFromName('GLOBAL_CHAT_ROOM');
+    const chatRoom = c.env.CHAT_ROOM.get(id);
+    await chatRoom.fetch(new Request('http://internal/broadcast', {
+      method: 'POST',
+      body: JSON.stringify({
+        type: 'new_message',
+        sessionId,
+        message: newMsg,
+        sessionSummary: session
+      })
+    }));
+  } catch (err) {
+    // Optional
+  }
+
+  return c.json({ success: true, message: newMsg, session });
 });
 
 app.get('/api/admin/chats', requireAdmin, async (c) => {

@@ -29,6 +29,27 @@ export default function AdminDashboard() {
   const [selectedSessionId, setSelectedSessionId] = useState(null);
   const [replyText, setReplyText] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [incomingNotification, setIncomingNotification] = useState(null);
+
+  // Play audio chime when message arrives
+  const playNotificationSound = () => {
+    try {
+      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
+      osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.12); // A5
+      gain.gain.setValueAtTime(0.18, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.45);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.45);
+    } catch (e) {
+      // Audio autoplay may be constrained
+    }
+  };
 
   // New Client Form Modal
   const [clientModalOpen, setClientModalOpen] = useState(false);
@@ -306,6 +327,17 @@ export default function AdminDashboard() {
           } else if (data.type === 'showcase_created' || data.type === 'showcase_deleted') {
             fetchShowcases();
           } else if (data.type === 'new_message') {
+            if (data.message?.sender === 'client') {
+              playNotificationSound();
+              setIncomingNotification({
+                id: data.message.id || Date.now(),
+                sessionId: data.sessionId,
+                sender: data.sessionSummary?.clientName || 'Website Visitor',
+                email: data.sessionSummary?.clientEmail || '',
+                text: data.message.text,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              });
+            }
             setChats((prev) => {
               const existingIndex = prev.findIndex(c => c.sessionId === data.sessionId);
               if (existingIndex >= 0) {
@@ -327,6 +359,15 @@ export default function AdminDashboard() {
             });
             fetchStats();
           } else if (data.type === 'new_chat_session') {
+            playNotificationSound();
+            setIncomingNotification({
+              id: Date.now(),
+              sessionId: data.session?.sessionId,
+              sender: data.session?.clientName || 'New Visitor',
+              email: data.session?.clientEmail || '',
+              text: 'Started a new live conversation on your website.',
+              time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+            });
             setChats((prev) => [data.session, ...prev]);
             fetchStats();
           }
@@ -2529,6 +2570,123 @@ export default function AdminDashboard() {
                 </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* Real-Time Visitor Message Notification Banner */}
+      {incomingNotification && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '24px',
+            right: '24px',
+            zIndex: 99999,
+            width: '360px',
+            maxWidth: 'calc(100vw - 32px)',
+            background: 'linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%)',
+            border: '1px solid #6366f1',
+            borderRadius: '16px',
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(99, 102, 241, 0.35)',
+            padding: '16px 18px',
+            animation: 'slideInRight 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+            color: '#fff',
+            fontFamily: 'inherit'
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '1.25rem', animation: 'bounce 1s infinite' }}>💬</span>
+              <strong style={{ fontSize: '0.92rem', color: '#38bdf8', letterSpacing: '0.5px' }}>
+                NEW VISITOR MESSAGE
+              </strong>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>
+                {incomingNotification.time}
+              </span>
+              <button
+                type="button"
+                onClick={() => setIncomingNotification(null)}
+                style={{
+                  background: 'transparent',
+                  border: 'none',
+                  color: '#94a3b8',
+                  cursor: 'pointer',
+                  fontSize: '1rem',
+                  padding: '2px 4px',
+                  lineHeight: 1
+                }}
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+
+          <div style={{ fontSize: '0.86rem', fontWeight: 600, color: '#f8fafc', marginBottom: '4px' }}>
+            {incomingNotification.sender}
+            {incomingNotification.email && (
+              <span style={{ fontWeight: 400, color: '#94a3b8', marginLeft: '6px', fontSize: '0.78rem' }}>
+                ({incomingNotification.email})
+              </span>
+            )}
+          </div>
+
+          <div
+            style={{
+              fontSize: '0.84rem',
+              color: '#cbd5e1',
+              background: 'rgba(255, 255, 255, 0.05)',
+              padding: '8px 12px',
+              borderRadius: '8px',
+              borderLeft: '3px solid #38bdf8',
+              marginBottom: '12px',
+              lineHeight: 1.4,
+              maxHeight: '75px',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis'
+            }}
+          >
+            "{incomingNotification.text}"
+          </div>
+
+          <div style={{ display: 'flex', gap: '8px', justifyContent: 'flex-end' }}>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveTab('chat');
+                setSelectedSessionId(incomingNotification.sessionId);
+                setIncomingNotification(null);
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #3b82f6, #06b6d4)',
+                border: 'none',
+                color: '#fff',
+                padding: '6px 14px',
+                borderRadius: '8px',
+                fontSize: '0.82rem',
+                fontWeight: 600,
+                cursor: 'pointer',
+                boxShadow: '0 2px 8px rgba(6, 182, 212, 0.4)'
+              }}
+            >
+              Open Live Chat ⚡
+            </button>
+            <button
+              type="button"
+              onClick={() => setIncomingNotification(null)}
+              style={{
+                background: 'rgba(255, 255, 255, 0.1)',
+                border: 'none',
+                color: '#94a3b8',
+                padding: '6px 12px',
+                borderRadius: '8px',
+                fontSize: '0.82rem',
+                cursor: 'pointer'
+              }}
+            >
+              Dismiss
+            </button>
           </div>
         </div>
       )}
