@@ -105,7 +105,9 @@ export default function App() {
     return <ClientPortal onBackToWebsite={() => { window.location.href = '/'; }} />;
   }
 
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('aveniq_theme') || 'light';
+  });
   const [activePhraseIndex, setActivePhraseIndex] = useState(0);
   const phrases = [
     'Custom Web & Mobile Applications',
@@ -180,6 +182,7 @@ export default function App() {
   // Theme synchronization
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('aveniq_theme', theme);
   }, [theme]);
 
   // Dynamic headline rotate

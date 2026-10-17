@@ -45,32 +45,32 @@
   --shadow-card: 0 16px 36px -12px rgba(0, 0, 0, 0.65), 0 0 20px rgba(0, 229, 255, 0.05);
 }
 
-/* Light Mode (Futuristic Clean High-Tech Aesthetic) */
+/* Light Mode (Clean, Crisp Light Blue & White Premium Aesthetic) */
 [data-theme="light"] {
-  --bg-base: #F8FAFD;
-  --bg-surface: #FFFFFF;
-  --bg-surface-elevated: #F1F5F9;
-  --bg-surface-glass: rgba(255, 255, 255, 0.85);
-  --bg-glass-card: rgba(255, 255, 255, 0.8);
+  --bg-base: #F0F7FF; /* Soft crystal light blue background */
+  --bg-surface: #FFFFFF; /* Pure crisp white surface */
+  --bg-surface-elevated: #E8F2FC; /* Elevated pale sky blue */
+  --bg-surface-glass: rgba(255, 255, 255, 0.92);
+  --bg-glass-card: rgba(255, 255, 255, 0.95);
   --bg-input: #FFFFFF;
 
-  --border-subtle: rgba(15, 23, 42, 0.1);
-  --border-glow: rgba(0, 163, 196, 0.4);
-  --border-glass: rgba(0, 163, 196, 0.2);
+  --border-subtle: rgba(2, 132, 199, 0.14); /* Clean light blue border */
+  --border-glow: rgba(14, 165, 233, 0.45);
+  --border-glass: rgba(14, 165, 233, 0.22);
 
-  --text-main: #0B132B;
-  --text-muted: #475569;
-  --text-dim: #94A3B8;
-  --text-accent: #0077B6;
+  --text-main: #0F172A; /* Deep clear solid black/slate for maximum clarity */
+  --text-muted: #475569; /* Polished medium grey for readable body copy */
+  --text-dim: #64748B; /* Elegant slate grey */
+  --text-accent: #0284C7; /* Radiant oceanic light blue */
 
-  --badge-bg: rgba(0, 180, 216, 0.12);
-  --badge-border: rgba(0, 180, 216, 0.35);
-  --badge-text: #0077B6;
+  --badge-bg: rgba(14, 165, 233, 0.12);
+  --badge-border: rgba(14, 165, 233, 0.35);
+  --badge-text: #0369A1;
 
-  --grid-line: rgba(14, 116, 144, 0.04);
-  --radial-glow: rgba(0, 180, 216, 0.1);
-  --radial-purple: rgba(124, 58, 237, 0.08);
-  --shadow-card: 0 16px 36px -12px rgba(15, 23, 42, 0.08), 0 0 15px rgba(0, 180, 216, 0.06);
+  --grid-line: rgba(14, 165, 233, 0.06);
+  --radial-glow: rgba(186, 230, 253, 0.55); /* Luminous light blue glow */
+  --radial-purple: rgba(199, 210, 254, 0.45); /* Soft periwinkle blue glow */
+  --shadow-card: 0 10px 30px -5px rgba(14, 165, 233, 0.10), 0 4px 12px rgba(15, 23, 42, 0.05);
 }
 
 * {

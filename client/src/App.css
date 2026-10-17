@@ -108,7 +108,7 @@
 }
 
 .nav-link:hover {
-  color: #fff;
+  color: var(--text-main);
 }
 
 .nav-link::after {
@@ -183,7 +183,7 @@
 .theme-toggle-btn:hover {
   border-color: var(--brand-cyan);
   box-shadow: 0 0 14px rgba(0, 229, 255, 0.25);
-  color: #fff;
+  color: var(--text-main);
 }
 
 .theme-icon {
