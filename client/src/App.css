@@ -4145,7 +4145,7 @@ textarea.input-control {
   flex-direction: column;
 }
 
-.metric-label {
+.admin-client-metric-card .metric-label {
   font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.6);
   text-transform: uppercase;
@@ -4153,7 +4153,7 @@ textarea.input-control {
   margin-bottom: 4px;
 }
 
-.metric-number {
+.admin-client-metric-card .metric-number {
   font-size: 1.6rem;
   font-weight: 800;
   color: #fff;
@@ -5332,5 +5332,23 @@ textarea.input-control {
   background: #F8FAFC !important;
 }
 
+/* ==========================================================================
+   Light Mode Hero Metrics Bar & Text Clarity Overrides
+   ========================================================================== */
+[data-theme="light"] .hero-metrics-bar {
+  border-top: 1px solid rgba(2, 132, 199, 0.16) !important;
+}
 
+[data-theme="light"] .metric-label,
+[data-theme="light"] .hero-metrics-bar .metric-label {
+  color: #334155 !important; /* Polished dark slate for high legibility */
+  font-weight: 700 !important;
+  opacity: 0.95 !important;
+  letter-spacing: 0.06em !important;
+}
 
+[data-theme="light"] .metric-value,
+[data-theme="light"] .hero-metrics-bar .metric-value {
+  color: #2563EB !important;
+  font-weight: 800 !important;
+}
