@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { API_BASE } from './apiConfig.js';
 
 export default function ClientPortal({ onBackToWebsite }) {
   const [username, setUsername] = useState('');
@@ -26,7 +27,7 @@ export default function ClientPortal({ onBackToWebsite }) {
   const fetchProjects = async (clientId) => {
     setRefreshing(true);
     try {
-      const res = await fetch(`/api/client/projects/${clientId}`);
+      const res = await fetch(`${API_BASE}/api/client/projects/${clientId}`);
       const data = await res.json();
       if (res.ok && data.success) {
         setProjects(data.projects || []);
@@ -44,7 +45,7 @@ export default function ClientPortal({ onBackToWebsite }) {
     setLoading(true);
 
     try {
-      const res = await fetch('/api/client/login', {
+      const res = await fetch(`${API_BASE}/api/client/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })

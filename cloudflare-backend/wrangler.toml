@@ -1,0 +1,24 @@
+name = "aveniq-backend"
+main = "src/index.js"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+ADMIN_PASSWORD = "aveniq-admin-secret-2026"
+ADMIN_KEY = "aveniq2026"
+
+# D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "aveniq-db"
+database_id = "ba4f655f-5fbc-4ec4-9193-ff0c96fbf2c0"
+
+# Durable Objects for Real-time WebSockets
+[durable_objects]
+bindings = [
+  { name = "CHAT_ROOM", class_name = "ChatRoomDO" }
+]
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["ChatRoomDO"]

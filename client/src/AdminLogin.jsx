@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE } from './apiConfig.js';
 
 export default function AdminLogin({ onAuthenticated }) {
   const [password, setPassword] = useState('');
@@ -11,7 +12,7 @@ export default function AdminLogin({ onAuthenticated }) {
     setIsLoading(true);
 
     try {
-      const res = await fetch('/api/admin/login', {
+      const res = await fetch(`${API_BASE}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password })

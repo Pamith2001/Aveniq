@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { API_BASE } from './apiConfig.js';
 
 export const SOFTWARE_SERVICES = [
   {
@@ -93,7 +94,7 @@ export default function OrderServiceModal({ isOpen, initialService, onClose, onO
         requirements: formData.requirements
       };
 
-      const res = await fetch('/api/orders', {
+      const res = await fetch(`${API_BASE}/api/orders`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)

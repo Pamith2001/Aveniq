@@ -4,7 +4,10 @@
   "description": "Aveniq Web and Backend Solution",
   "scripts": {
     "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev:cf": "concurrently \"npm run server:cf\" \"npm run client\"",
     "server": "npm --prefix server start",
+    "server:cf": "npm --prefix cloudflare-backend run dev",
+    "deploy:cf": "npm --prefix cloudflare-backend run deploy",
     "client": "npm --prefix client run dev"
   },
   "devDependencies": {

@@ -6,6 +6,7 @@ import AdminLogin from './AdminLogin.jsx';
 import AdminDashboard from './AdminDashboard.jsx';
 import ClientPortal from './ClientPortal.jsx';
 import OrderServiceModal, { SOFTWARE_SERVICES } from './OrderServiceModal.jsx';
+import { API_BASE } from './apiConfig.js';
 import './App.css';
 
 // Direct Contact details for the Software Company
@@ -194,7 +195,7 @@ export default function App() {
     const checkHealth = async () => {
       try {
         const start = performance.now();
-        const res = await fetch('/api/health');
+        const res = await fetch(`${API_BASE}/api/health`);
         const end = performance.now();
         if (res.ok) {
           const data = await res.json();
@@ -217,7 +218,7 @@ export default function App() {
   const fetchPublicShowcases = async () => {
     try {
       setShowcasesLoading(true);
-      const res = await fetch('/api/showcases');
+      const res = await fetch(`${API_BASE}/api/showcases`);
       if (res.ok) {
         const data = await res.json();
         setShowcases(data.showcases || []);
@@ -351,7 +352,7 @@ export default function App() {
     setFormStatus({ loading: true, success: false, error: null, refId: null });
 
     try {
-      const res = await fetch('/api/contact', {
+      const res = await fetch(`${API_BASE}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
@@ -392,7 +393,7 @@ export default function App() {
   const fetchInquiries = async () => {
     setInquiriesLoading(true);
     try {
-      const res = await fetch('/api/contact');
+      const res = await fetch(`${API_BASE}/api/contact`);
       const data = await res.json();
       if (data.success) {
         setInquiries(data.messages || []);
@@ -411,7 +412,7 @@ export default function App() {
 
   const handleDeleteInquiry = async (id) => {
     try {
-      const res = await fetch(`/api/contact/${id}`, { method: 'DELETE' });
+      const res = await fetch(`${API_BASE}/api/contact/${id}`, { method: 'DELETE' });
       if (res.ok) {
         setInquiries((prev) => prev.filter((item) => item.id !== id));
       }
