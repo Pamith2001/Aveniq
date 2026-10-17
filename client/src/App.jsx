@@ -20,52 +20,36 @@ const OWNER_CONTACT = {
 
 const SERVICES_DATA = [
   {
-    id: 'web-mobile',
-    name: 'Web & Mobile App Development',
-    icon: '🚀',
-    summary: 'Custom responsive websites, business portals, web applications, and mobile solutions tailored for your business.',
-    features: ['Responsive UI on Mobile & Desktop', 'Fast Performance & Clean Code', 'Search Engine Optimization (SEO)', 'WhatsApp Direct Chat & Forms'],
-    tech: ['React.js', 'Node.js', 'HTML5 / CSS3', 'Bootstrap / Tailwind']
+    id: 'web-development',
+    name: 'Web Development',
+    icon: '🌐',
+    summary: 'High-performance corporate websites, robust web applications, e-commerce stores, and custom client management portals built with modern frameworks.',
+    features: ['Responsive UI on Mobile, Tablet & Desktop', 'Fast Page Load & Clean React/Vite Architecture', 'SEO Optimization & Google Search Ranking', 'Custom REST APIs & WhatsApp Direct Connect'],
+    tech: ['React.js', 'Next.js', 'Node.js', 'Tailwind CSS', 'TypeScript']
   },
   {
-    id: 'custom-software',
-    name: 'Business Management Software',
-    icon: '💻',
-    summary: 'Tailor-made software for inventory management, billing, invoicing, and POS systems for local businesses.',
-    features: ['Stock & Inventory Tracking', 'Invoicing & Receipt Printing', 'User Roles & Security Access', 'Sales Reports & Analytics'],
-    tech: ['Node.js', 'Express', 'MySQL / PostgreSQL', 'React']
+    id: 'mobile-app',
+    name: 'Mobile App Development',
+    icon: '📱',
+    summary: 'Native and cross-platform mobile apps for iOS and Android tailored for smooth user flows, offline capability, and high engagement.',
+    features: ['Cross-Platform iOS & Android Apps', 'Fluid Native Gestures & 60fps Animations', 'Push Notifications & Real-Time Sync', 'App Store & Google Play Launch Assistance'],
+    tech: ['React Native', 'Flutter', 'Firebase', 'REST APIs', 'Node.js']
   },
   {
-    id: 'ecommerce',
-    name: 'E-Commerce & Online Stores',
-    icon: '🛒',
-    summary: 'Build and launch your online store with product catalogs, shopping cart, and Sri Lankan payment gateway integration.',
-    features: ['Product Management & Categories', 'Shopping Cart & Orders', 'Local Payment Gateway Support', 'Order Email Notifications'],
-    tech: ['React', 'Payment Gateways', 'Node.js', 'REST APIs']
+    id: 'ui-ux-design',
+    name: 'UI/UX Design',
+    icon: '🎨',
+    summary: 'User-centered product design, interactive wireframing, high-fidelity prototypes, and sleek modern design systems created in Figma.',
+    features: ['Modern Intuitive User Journey Mapping', 'High-Fidelity Interactive Figma Prototypes', 'Comprehensive Brand Design Systems', 'Usability Testing & Design System Hand-off'],
+    tech: ['Figma', 'Prototyping', 'Design Systems', 'Micro-Interactions']
   },
   {
-    id: 'cloud-hosting',
-    name: 'Domain, Hosting & Cloud Setup',
+    id: 'cloud-devops',
+    name: 'Cloud & DevOps',
     icon: '☁️',
-    summary: 'Fast SSD web hosting, .LK or .COM domain setup, business email configuration, and free SSL certificates.',
-    features: ['.LK / .COM Domain Setup', 'Business Email (Google/cPanel)', 'Free SSL Security', 'Daily Automated Backups'],
-    tech: ['cPanel', 'Cloud Hosting', 'SSL', 'DNS Config']
-  },
-  {
-    id: 'api-automation',
-    name: 'SMS & WhatsApp Integrations',
-    icon: '⚡',
-    summary: 'Automate your customer communication with instant SMS notifications and WhatsApp message alerts.',
-    features: ['Sri Lankan SMS Gateway Setup', 'WhatsApp Order Notifications', 'Excel / Spreadsheet Sync', 'Automated Daily Reports'],
-    tech: ['SMS Gateways', 'REST APIs', 'Webhooks', 'JavaScript']
-  },
-  {
-    id: 'maintenance',
-    name: 'Website Maintenance & Support',
-    icon: '⚙️',
-    summary: 'Continuous technical support, website updates, bug fixing, and security monitoring for peace of mind.',
-    features: ['Routine Software Updates', 'Bug Fixes & Speed Tuning', 'Content & Image Updates', 'Direct Phone & WhatsApp Support'],
-    tech: ['Support', 'Security', 'Monitoring', 'Optimization']
+    summary: 'Scalable cloud infrastructure, automated CI/CD pipelines, container orchestration, serverless edge hosting, and 24/7 reliability.',
+    features: ['Cloudflare Edge & Serverless Deployment', 'Docker Containerization & Kubernetes', 'Automated GitHub Actions CI/CD Pipelines', 'Database Clustering, SSL & 99.99% Uptime SLA'],
+    tech: ['Cloudflare Workers', 'AWS', 'Docker', 'Linux', 'PostgreSQL', 'CI/CD']
   }
 ];
 
@@ -771,6 +755,46 @@ export default function App() {
               <div className="telemetry-node">
                 <div className="telemetry-title">Security Model</div>
                 <div className="telemetry-val">Zero-Trust AES-256</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================================================================
+          Company Milestone & Achievements Banner
+          ==================================================================== */}
+      <section className="achievements-banner-section">
+        <div className="container">
+          <div className="achievements-banner-card">
+            <div className="achievement-stat-item">
+              <div className="stat-icon-wrapper">🚀</div>
+              <div className="stat-content">
+                <div className="stat-number gradient-text">100+</div>
+                <div className="stat-title">Projects Completed</div>
+                <div className="stat-desc">Delivered on-time across web, mobile & cloud</div>
+              </div>
+            </div>
+
+            <div className="achievement-divider"></div>
+
+            <div className="achievement-stat-item">
+              <div className="stat-icon-wrapper">🤝</div>
+              <div className="stat-content">
+                <div className="stat-number gradient-text">60+</div>
+                <div className="stat-title">Trusted Clients</div>
+                <div className="stat-desc">Startups, SMEs & enterprises in Sri Lanka & global</div>
+              </div>
+            </div>
+
+            <div className="achievement-divider"></div>
+
+            <div className="achievement-stat-item">
+              <div className="stat-icon-wrapper">⭐</div>
+              <div className="stat-content">
+                <div className="stat-number gradient-text">5+ Years</div>
+                <div className="stat-title">Proven Experience</div>
+                <div className="stat-desc">Engineering resilient, production-ready systems</div>
               </div>
             </div>
           </div>

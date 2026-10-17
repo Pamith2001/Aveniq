@@ -3,58 +3,40 @@ import { API_BASE } from './apiConfig.js';
 
 export const SOFTWARE_SERVICES = [
   {
-    id: 'web-mobile',
-    name: 'Web & Mobile App Development',
-    category: 'Full-Stack Development',
-    icon: '🚀',
-    description: 'Modern, responsive business websites, web applications, customer portals, and mobile-friendly applications.',
-    deliverables: ['Custom Responsive Web Design', 'Mobile & Tablet Optimization', 'Clean React & Node.js Architecture', 'Fast Loading & SEO Optimization', 'Contact Forms & WhatsApp Direct Chat'],
+    id: 'web-development',
+    name: 'Web Development',
+    category: 'Full-Stack Web Development',
+    icon: '🌐',
+    description: 'High-performance responsive websites, web applications, custom management portals, and e-commerce stores.',
+    deliverables: ['Custom Responsive Web Design', 'Mobile & Tablet Optimization', 'Clean React & Node.js Architecture', 'Fast Page Load & SEO Optimization', 'Contact Forms & WhatsApp Direct Chat'],
     defaultTimeline: '2-4 Weeks'
   },
   {
-    id: 'custom-software',
-    name: 'Custom Business Software & Management Systems',
-    category: 'Software Solutions',
-    icon: '💻',
-    description: 'Tailored management systems such as Inventory Management, POS systems, Billing, and CRM tools built for Sri Lankan business operations.',
-    deliverables: ['Custom Database & Record Management', 'Role-Based User Permissions', 'Invoicing, Billing & PDF Generation', 'Sales & Inventory Tracking', 'Secure Cloud Data Backup'],
+    id: 'mobile-app',
+    name: 'Mobile App Development',
+    category: 'iOS & Android App Solutions',
+    icon: '📱',
+    description: 'Native and cross-platform mobile applications crafted with high responsiveness, offline caching, and push alerts.',
+    deliverables: ['Cross-Platform iOS & Android Apps', 'Smooth Native Gestures & UX', 'Push Notification Integration', 'REST API & Cloud Data Sync', 'App Store & Google Play Launch Setup'],
     defaultTimeline: '3-6 Weeks'
   },
   {
-    id: 'ecommerce',
-    name: 'E-Commerce & Online Stores',
-    category: 'Online Business',
-    icon: '🛒',
-    description: 'Complete online shops with product catalog, cart, checkout, local payment gateways (e.g. PayHere, Bank Transfer, Koko), and order management.',
-    deliverables: ['Product Catalog & Category Filtering', 'Shopping Cart & Secure Checkout', 'Local Payment Gateway Integration', 'Customer Accounts & Order History', 'Admin Inventory & Order Dashboard'],
-    defaultTimeline: '3-5 Weeks'
-  },
-  {
-    id: 'cloud-hosting',
-    name: 'Cloud Hosting, Domain & Server Setup',
-    category: 'Infrastructure',
-    icon: '☁️',
-    description: 'Reliable cloud server hosting, custom domain configuration (.lk / .com), SSL security, and continuous server monitoring.',
-    deliverables: ['Domain Name Registration & DNS Setup', 'Free High-Security SSL Certificates', 'Automated Daily Database Backups', 'Fast SSD Cloud Server Hosting', '24/7 Server Uptime Monitoring'],
-    defaultTimeline: '1-2 Weeks'
-  },
-  {
-    id: 'api-automation',
-    name: 'API Integrations & Automation',
-    category: 'System Integration',
-    icon: '⚡',
-    description: 'Connect your software with SMS gateways (NotifyLK, Mobitel), WhatsApp API, accounting tools, and external services.',
-    deliverables: ['Automated SMS & WhatsApp Alerts', 'Third-Party REST API Connectors', 'Spreadsheet / Excel Data Sync', 'Automated Daily Email Reports', 'Custom Webhooks & Triggers'],
+    id: 'ui-ux-design',
+    name: 'UI/UX Design',
+    category: 'Product & Visual Design',
+    icon: '🎨',
+    description: 'Modern user experience wireframes, interactive Figma mockups, visual identity, and sleek design systems.',
+    deliverables: ['User Flow & Wireframing', 'High-Fidelity Interactive Figma Prototype', 'Design System & Component Library', 'Mobile & Desktop Responsive Layouts', 'Developer Design Tokens Export'],
     defaultTimeline: '1-3 Weeks'
   },
   {
-    id: 'maintenance',
-    name: 'Website Maintenance & Technical Support',
-    category: 'Ongoing Support',
-    icon: '⚙️',
-    description: 'Keep your website and business software bug-free, updated, and secure with dedicated ongoing technical support.',
-    deliverables: ['Routine Security Patches & Updates', 'Bug Fixes & Speed Optimization', 'Content & Image Updates', 'Monthly Performance Health Checks', 'Direct Phone & WhatsApp Support'],
-    defaultTimeline: 'Monthly Retainer'
+    id: 'cloud-devops',
+    name: 'Cloud & DevOps',
+    category: 'Cloud Architecture & Infrastructure',
+    icon: '☁️',
+    description: 'Reliable cloud server hosting, automated CI/CD deployments, containerization, and 24/7 uptime monitoring.',
+    deliverables: ['Cloudflare / AWS Serverless Architecture', 'Docker Container Setup & Optimization', 'Automated GitHub Actions CI/CD', 'SSL, DNS & High-Availability Database Config', '24/7 Server Health Monitoring'],
+    defaultTimeline: '1-2 Weeks'
   }
 ];
 
