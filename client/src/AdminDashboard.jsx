@@ -10,7 +10,20 @@ export default function AdminDashboard() {
   const [orders, setOrders] = useState([]);
   const [clientsList, setClientsList] = useState([]);
   const [projectsList, setProjectsList] = useState([]);
+  const [showcasesList, setShowcasesList] = useState([]);
   const [activeTab, setActiveTab] = useState('projects'); // Default directly to Project Progress & Management
+
+  // Add Showcase Form Modal
+  const [showcaseModalOpen, setShowcaseModalOpen] = useState(false);
+  const [showcaseForm, setShowcaseForm] = useState({
+    name: '',
+    url: '',
+    description: '',
+    tag: 'Web Platform'
+  });
+  const [showcaseFormError, setShowcaseFormError] = useState('');
+  const [showcaseFormSuccess, setShowcaseFormSuccess] = useState('');
+  const [isSubmittingShowcase, setIsSubmittingShowcase] = useState(false);
 
   // Live Chat state
   const [selectedSessionId, setSelectedSessionId] = useState(null);
@@ -162,6 +175,76 @@ export default function AdminDashboard() {
     }
   };
 
+  // Fetch Showcases (Our Newest Live Hosted Projects)
+  const fetchShowcases = async () => {
+    try {
+      const res = await fetch('/api/showcases');
+      if (res.ok) {
+        const data = await res.json();
+        setShowcasesList(data.showcases || []);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const handleCreateShowcase = async (e) => {
+    e.preventDefault();
+    setShowcaseFormError('');
+    setShowcaseFormSuccess('');
+
+    if (!showcaseForm.name.trim() || !showcaseForm.url.trim()) {
+      setShowcaseFormError('Please enter both Website Name and Hosted Link.');
+      return;
+    }
+
+    setIsSubmittingShowcase(true);
+    const token = sessionStorage.getItem('aveniq_admin_token');
+    try {
+      const res = await fetch('/api/admin/showcases', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(showcaseForm)
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setShowcaseFormSuccess('🎉 Project added to live website showcases!');
+        setShowcaseForm({ name: '', url: '', description: '', tag: 'Web Platform' });
+        fetchShowcases();
+        setTimeout(() => {
+          setShowcaseModalOpen(false);
+          setShowcaseFormSuccess('');
+        }, 1200);
+      } else {
+        setShowcaseFormError(data.error || 'Failed to add showcase project.');
+      }
+    } catch (err) {
+      console.error(err);
+      setShowcaseFormError('Network error adding showcase project.');
+    } finally {
+      setIsSubmittingShowcase(false);
+    }
+  };
+
+  const handleDeleteShowcase = async (id) => {
+    if (!window.confirm('Are you sure you want to remove this project from website showcases?')) return;
+    const token = sessionStorage.getItem('aveniq_admin_token');
+    try {
+      const res = await fetch(`/api/admin/showcases/${id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.ok) {
+        setShowcasesList(prev => prev.filter(s => s.id !== id));
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   // Fetch Global Stats
   const fetchStats = async () => {
     try {
@@ -190,6 +273,7 @@ export default function AdminDashboard() {
     fetchChats();
     fetchInquiries();
     fetchStats();
+    fetchShowcases();
 
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
     const wsUrl = `${protocol}//${window.location.host}/ws`;
@@ -219,6 +303,8 @@ export default function AdminDashboard() {
           } else if (data.type === 'new_order_placed') {
             setOrders(prev => [data.order, ...prev]);
             fetchStats();
+          } else if (data.type === 'showcase_created' || data.type === 'showcase_deleted') {
+            fetchShowcases();
           } else if (data.type === 'new_message') {
             setChats((prev) => {
               const existingIndex = prev.findIndex(c => c.sessionId === data.sessionId);
@@ -643,6 +729,9 @@ export default function AdminDashboard() {
             <span className="admin-stat-chip highlight">
               📊 Projects: <strong>{projectsList.length}</strong>
             </span>
+            <span className="admin-stat-chip highlight" style={{ borderColor: 'rgba(0, 229, 255, 0.4)', background: 'rgba(0, 229, 255, 0.08)' }}>
+              🌐 Showcases: <strong>{showcasesList.length}</strong>
+            </span>
             <span className="admin-stat-chip">
               💬 Chats: <strong>{chats.length}</strong>
             </span>
@@ -678,6 +767,19 @@ export default function AdminDashboard() {
           }}
         >
           📊 Project Progress & Edit ({projectsList.length})
+        </button>
+
+        <button
+          className={`admin-tab-btn ${activeTab === 'showcases' ? 'active' : ''}`}
+          onClick={() => {
+            setActiveTab('showcases');
+            setClientModalOpen(false);
+            setProjectModalOpen(false);
+            setEditProjectModalOpen(false);
+            setFullProjectViewModalOpen(false);
+          }}
+        >
+          🌐 Website Showcases ({showcasesList.length})
         </button>
 
         <button
@@ -1506,6 +1608,312 @@ export default function AdminDashboard() {
                 </div>
               ))
             )}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          TAB: WEBSITE SHOWCASES (OUR NEWEST HOSTED PROJECTS)
+          ======================================================== */}
+      {activeTab === 'showcases' && (
+        <div className="admin-tab-content-container">
+          <div className="admin-section-header-bar">
+            <div>
+              <h3>Live Website Showcases (Aveniq Public Showcase)</h3>
+              <p>Add new websites or projects with their hosted link. Added websites will immediately appear on the Aveniq public website in the interactive showcase grid with preview cards, hover modal popups, and scrollable windows.</p>
+            </div>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                onClick={fetchShowcases}
+                className="admin-header-btn outline"
+                title="Refresh showcases from database"
+              >
+                ↻ Refresh
+              </button>
+              <button
+                onClick={() => {
+                  setShowcaseFormError('');
+                  setShowcaseFormSuccess('');
+                  setShowcaseModalOpen(true);
+                }}
+                className="btn btn-primary"
+                style={{ padding: '8px 18px', fontSize: '0.88rem' }}
+              >
+                + Add New Project Website
+              </button>
+            </div>
+          </div>
+
+          {/* Inline Quick-Add Card */}
+          <div className="glass-card" style={{ padding: '20px 24px', marginBottom: '24px', border: '1px solid rgba(0, 229, 255, 0.25)', background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.05), rgba(41, 121, 255, 0.03))' }}>
+            <h4 style={{ margin: '0 0 12px 0', color: '#00e5ff', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>🚀 Quick Add New Project Website</span>
+            </h4>
+            <form onSubmit={handleCreateShowcase} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', alignItems: 'flex-end' }}>
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                  Website Name *
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Acme Logistics Portal"
+                  value={showcaseForm.name}
+                  onChange={(e) => setShowcaseForm(prev => ({ ...prev, name: e.target.value }))}
+                  required
+                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                  Hosted Link (URL) *
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. https://example.com or domain.lk"
+                  value={showcaseForm.url}
+                  onChange={(e) => setShowcaseForm(prev => ({ ...prev, url: e.target.value }))}
+                  required
+                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
+                />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                  Category Tag
+                </label>
+                <select
+                  value={showcaseForm.tag}
+                  onChange={(e) => setShowcaseForm(prev => ({ ...prev, tag: e.target.value }))}
+                  style={{ width: '100%', padding: '10px 14px', background: '#0f172a', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
+                >
+                  <option value="Web Platform">Web Platform</option>
+                  <option value="E-Commerce Store">E-Commerce Store</option>
+                  <option value="Business Management">Business Management</option>
+                  <option value="POS & Inventory">POS & Inventory</option>
+                  <option value="Mobile / Web App">Mobile / Web App</option>
+                  <option value="FinTech & Banking">FinTech & Banking</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                  Short Summary / Notes
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. High-throughput delivery management system"
+                  value={showcaseForm.description}
+                  onChange={(e) => setShowcaseForm(prev => ({ ...prev, description: e.target.value }))}
+                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <button
+                  type="submit"
+                  disabled={isSubmittingShowcase}
+                  className="btn btn-primary"
+                  style={{ padding: '10px 22px', fontSize: '0.9rem', height: '42px', whiteSpace: 'nowrap' }}
+                >
+                  {isSubmittingShowcase ? 'Publishing...' : 'Publish to Website ↗'}
+                </button>
+              </div>
+            </form>
+
+            {showcaseFormError && (
+              <div style={{ marginTop: '12px', padding: '8px 12px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '6px', color: '#ef4444', fontSize: '0.85rem' }}>
+                ⚠️ {showcaseFormError}
+              </div>
+            )}
+            {showcaseFormSuccess && (
+              <div style={{ marginTop: '12px', padding: '8px 12px', background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '6px', color: '#10b981', fontSize: '0.85rem' }}>
+                {showcaseFormSuccess}
+              </div>
+            )}
+          </div>
+
+          {/* Showcases Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+            {showcasesList.length === 0 ? (
+              <div style={{ textAlign: 'center', padding: '50px 20px', color: 'rgba(255,255,255,0.5)', gridColumn: '1 / -1', background: 'rgba(255,255,255,0.02)', borderRadius: '16px' }}>
+                <div style={{ fontSize: '2.4rem', marginBottom: '12px' }}>🌐</div>
+                <div style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '6px' }}>No Showcase Projects Added Yet</div>
+                <p style={{ fontSize: '0.88rem' }}>Add your newest projects above. They will be displayed in interactive scrollable cards on the public Aveniq page.</p>
+              </div>
+            ) : (
+              showcasesList.map((item) => (
+                <div key={item.id} className="glass-card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', position: 'relative', overflow: 'hidden' }}>
+                  <div>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
+                      <span style={{ fontSize: '0.74rem', padding: '3px 10px', borderRadius: '12px', background: 'rgba(0, 229, 255, 0.12)', color: '#00e5ff', border: '1px solid rgba(0, 229, 255, 0.25)', fontWeight: '600' }}>
+                        {item.tag || 'Project'}
+                      </span>
+                      <span style={{ fontSize: '0.74rem', color: 'rgba(255,255,255,0.4)' }}>
+                        {new Date(item.createdAt).toLocaleDateString()}
+                      </span>
+                    </div>
+
+                    <h4 style={{ margin: '0 0 8px 0', fontSize: '1.15rem', color: '#fff' }}>
+                      {item.name}
+                    </h4>
+
+                    {item.description && (
+                      <p style={{ fontSize: '0.86rem', color: 'rgba(255,255,255,0.7)', margin: '0 0 14px 0', lineHeight: 1.5 }}>
+                        {item.description}
+                      </p>
+                    )}
+
+                    <div style={{ marginBottom: '14px', padding: '8px 12px', background: 'rgba(0,0,0,0.3)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.06)', wordBreak: 'break-all' }}>
+                      <span style={{ fontSize: '0.72rem', color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', display: 'block', marginBottom: '2px' }}>
+                        Hosted Link
+                      </span>
+                      <a href={item.url} target="_blank" rel="noreferrer" style={{ color: '#00e5ff', fontSize: '0.85rem', textDecoration: 'none' }}>
+                        🔗 {item.url}
+                      </a>
+                    </div>
+                  </div>
+
+                  <div style={{ display: 'flex', gap: '8px', paddingTop: '12px', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-secondary"
+                      style={{ flex: 1, padding: '7px 12px', fontSize: '0.82rem', textAlign: 'center', textDecoration: 'none' }}
+                    >
+                      ↗ Visit Site
+                    </a>
+                    <button
+                      onClick={() => handleDeleteShowcase(item.id)}
+                      className="inquiry-action-btn delete"
+                      title="Delete showcase project"
+                      style={{ padding: '7px 12px' }}
+                    >
+                      🗑️ Remove
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================
+          MODAL: ADD NEW PROJECT WEBSITE SHOWCASE
+          ======================================================== */}
+      {showcaseModalOpen && (
+        <div className="admin-modal-overlay">
+          <div className="admin-modal-card" style={{ maxWidth: '540px' }}>
+            <div className="admin-modal-header">
+              <div>
+                <h3 style={{ margin: 0, color: '#fff' }}>Add New Project to Website</h3>
+                <p style={{ margin: '4px 0 0 0', fontSize: '0.85rem', color: 'rgba(255,255,255,0.6)' }}>
+                  This project will be immediately visible in the Aveniq public showcases grid.
+                </p>
+              </div>
+              <button
+                onClick={() => setShowcaseModalOpen(false)}
+                className="admin-modal-close-btn"
+              >
+                ✕
+              </button>
+            </div>
+
+            <form onSubmit={handleCreateShowcase} className="admin-modal-body">
+              {showcaseFormError && (
+                <div style={{ padding: '10px 14px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '8px', color: '#ef4444', fontSize: '0.88rem', marginBottom: '14px' }}>
+                  ⚠️ {showcaseFormError}
+                </div>
+              )}
+              {showcaseFormSuccess && (
+                <div style={{ padding: '10px 14px', background: 'rgba(16, 185, 129, 0.15)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '8px', color: '#10b981', fontSize: '0.88rem', marginBottom: '14px' }}>
+                  {showcaseFormSuccess}
+                </div>
+              )}
+
+              <div className="form-group" style={{ marginBottom: '16px' }}>
+                <label className="form-label" style={{ display: 'block', fontSize: '0.85rem', marginBottom: '6px' }}>
+                  Website / Project Name *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="e.g. Apex Health Management Platform"
+                  value={showcaseForm.name}
+                  onChange={(e) => setShowcaseForm(prev => ({ ...prev, name: e.target.value }))}
+                  style={{ width: '100%', padding: '11px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.92rem' }}
+                />
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '16px' }}>
+                <label className="form-label" style={{ display: 'block', fontSize: '0.85rem', marginBottom: '6px' }}>
+                  Hosted Link (Live Website URL) *
+                </label>
+                <input
+                  type="text"
+                  required
+                  placeholder="https://client-domain.com or https://project.vercel.app"
+                  value={showcaseForm.url}
+                  onChange={(e) => setShowcaseForm(prev => ({ ...prev, url: e.target.value }))}
+                  style={{ width: '100%', padding: '11px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.92rem' }}
+                />
+                <span style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', display: 'block', marginTop: '4px' }}>
+                  If http/https is omitted, https:// will be automatically added.
+                </span>
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '16px' }}>
+                <label className="form-label" style={{ display: 'block', fontSize: '0.85rem', marginBottom: '6px' }}>
+                  Category Tag
+                </label>
+                <select
+                  value={showcaseForm.tag}
+                  onChange={(e) => setShowcaseForm(prev => ({ ...prev, tag: e.target.value }))}
+                  style={{ width: '100%', padding: '11px 14px', background: '#0f172a', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.92rem' }}
+                >
+                  <option value="Web Platform">Web Platform</option>
+                  <option value="E-Commerce Store">E-Commerce Store</option>
+                  <option value="Business Management">Business Management</option>
+                  <option value="POS & Inventory">POS & Inventory</option>
+                  <option value="Mobile / Web App">Mobile / Web App</option>
+                  <option value="FinTech & Banking">FinTech & Banking</option>
+                </select>
+              </div>
+
+              <div className="form-group" style={{ marginBottom: '20px' }}>
+                <label className="form-label" style={{ display: 'block', fontSize: '0.85rem', marginBottom: '6px' }}>
+                  Short Description
+                </label>
+                <textarea
+                  rows="3"
+                  placeholder="Brief summary of what this website provides..."
+                  value={showcaseForm.description}
+                  onChange={(e) => setShowcaseForm(prev => ({ ...prev, description: e.target.value }))}
+                  style={{ width: '100%', padding: '11px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.92rem', resize: 'vertical' }}
+                />
+              </div>
+
+              <div className="admin-modal-footer" style={{ padding: '0', display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+                <button
+                  type="button"
+                  onClick={() => setShowcaseModalOpen(false)}
+                  className="btn btn-secondary"
+                  style={{ padding: '9px 18px' }}
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={isSubmittingShowcase}
+                  className="btn btn-primary"
+                  style={{ padding: '9px 22px' }}
+                >
+                  {isSubmittingShowcase ? 'Saving...' : 'Add to Showcase'}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

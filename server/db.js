@@ -88,7 +88,29 @@ db.exec(`
     status TEXT DEFAULT 'Pending Review',
     createdAt TEXT NOT NULL
   );
+
+  CREATE TABLE IF NOT EXISTS showcases (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    url TEXT NOT NULL,
+    description TEXT,
+    tag TEXT,
+    createdAt TEXT NOT NULL
+  );
 `);
+
+// Seed default showcases if none exist
+const showcaseCount = db.prepare('SELECT COUNT(*) as count FROM showcases').get().count;
+if (showcaseCount === 0) {
+  const insertShowcase = db.prepare(`
+    INSERT INTO showcases (id, name, url, description, tag, createdAt)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `);
+  const now = new Date().toISOString();
+  insertShowcase.run('sc_1', 'Stripe Docs & Developer Portal', 'https://docs.stripe.com', 'Next-gen payment infrastructure documentation and dashboard experience.', 'FinTech', now);
+  insertShowcase.run('sc_2', 'Vite Next Generation Frontend', 'https://vite.dev', 'Modern blazing fast frontend tooling and dev environment.', 'Developer Tools', now);
+  insertShowcase.run('sc_3', 'Tailwind CSS Modern Engine', 'https://tailwindcss.com', 'Modern utility-first CSS framework and UI design system showcase.', 'Web Platform', now);
+}
 
 // Seed default demo client & project if none exist
 const clientCount = db.prepare('SELECT COUNT(*) as count FROM clients').get().count;

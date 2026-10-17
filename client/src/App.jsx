@@ -137,6 +137,39 @@ export default function App() {
   const [estScale, setEstScale] = useState('Small Business / Startup');
   const [estTimeline, setEstTimeline] = useState('Standard (2-4 Weeks)');
 
+  // Live Showcase Projects state
+  const [showcases, setShowcases] = useState([]);
+  const [showcasesLoading, setShowcasesLoading] = useState(true);
+  const [previewModalProject, setPreviewModalProject] = useState(null);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const modalCloseTimerRef = useRef(null);
+
+  // Helper functions for mouse-triggered popup open & close
+  const handleOpenPreview = (proj) => {
+    if (modalCloseTimerRef.current) {
+      clearTimeout(modalCloseTimerRef.current);
+      modalCloseTimerRef.current = null;
+    }
+    setPreviewModalProject(proj);
+    setIframeLoaded(false);
+  };
+
+  const handleScheduleClosePreview = () => {
+    if (modalCloseTimerRef.current) {
+      clearTimeout(modalCloseTimerRef.current);
+    }
+    modalCloseTimerRef.current = setTimeout(() => {
+      setPreviewModalProject(null);
+    }, 280); // Smooth grace period so user can move between card and popup
+  };
+
+  const handleCancelClosePreview = () => {
+    if (modalCloseTimerRef.current) {
+      clearTimeout(modalCloseTimerRef.current);
+      modalCloseTimerRef.current = null;
+    }
+  };
+
   // Mobile navigation drawer toggle
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -178,6 +211,26 @@ export default function App() {
     checkHealth();
     const interval = setInterval(checkHealth, 30000);
     return () => clearInterval(interval);
+  }, []);
+
+  // Fetch Public Project Showcases
+  const fetchPublicShowcases = async () => {
+    try {
+      setShowcasesLoading(true);
+      const res = await fetch('/api/showcases');
+      if (res.ok) {
+        const data = await res.json();
+        setShowcases(data.showcases || []);
+      }
+    } catch (err) {
+      console.error('Failed to load showcases:', err);
+    } finally {
+      setShowcasesLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchPublicShowcases();
   }, []);
 
   // Interactive Neural Particle Grid in Canvas
@@ -417,13 +470,18 @@ export default function App() {
             </div>
           </a>
 
-          <nav>
+          <nav className="desktop-nav">
             <ul className="nav-links">
               <li><a href="#services" className="nav-link">Our Services</a></li>
+              <li>
+                <a href="#projects-showcase" className="nav-link nav-link-highlight">
+                  <span>Projects</span>
+                  <span className="nav-live-badge">LIVE</span>
+                </a>
+              </li>
               <li><a href="#estimator" className="nav-link">Project Scoper</a></li>
               <li><a href="#tech-stack" className="nav-link">Technologies</a></li>
-              <li><a href="#owner-connect" className="nav-link">Contact Us</a></li>
-              <li><a href="#contact" className="nav-link">Inquiry</a></li>
+              <li><a href="#owner-connect" className="nav-link">Contact</a></li>
             </ul>
           </nav>
 
@@ -434,6 +492,7 @@ export default function App() {
               className="theme-toggle-btn"
               id="theme-toggle-btn"
               title="Toggle Dark / Light Mode"
+              aria-label="Toggle Theme"
             >
               {theme === 'dark' ? (
                 <>
@@ -448,25 +507,24 @@ export default function App() {
                     <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
                     <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
                   </svg>
-                  <span>Light Mode</span>
+                  <span className="theme-btn-label">Light</span>
                 </>
               ) : (
                 <>
                   <svg className="theme-icon" viewBox="0 0 24 24" fill="none" strokeWidth="2">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                   </svg>
-                  <span>Dark Mode</span>
+                  <span className="theme-btn-label">Dark</span>
                 </>
               )}
             </button>
 
             <a
               href="/client-portal"
-              className="btn btn-secondary"
+              className="btn btn-secondary nav-action-btn"
               id="nav-client-portal-btn"
-              style={{ padding: '8px 14px', fontSize: '0.84rem' }}
             >
-              📂 Client Login
+              <span>📂 Client Login</span>
             </a>
 
             {/* Order Services direct CTA */}
@@ -475,65 +533,87 @@ export default function App() {
                 setSelectedOrderService(SOFTWARE_SERVICES[0]);
                 setOrderModalOpen(true);
               }}
-              className="btn btn-primary"
+              className="btn btn-primary nav-action-btn nav-order-highlight"
               id="nav-order-btn"
-              style={{ padding: '8px 16px', fontSize: '0.85rem' }}
             >
-              🛒 Order Service
+              <span>🛒 Order Service</span>
             </button>
-
-            <a href="#contact" className="btn btn-secondary nav-inquiry-desktop" id="nav-cta-btn" style={{ padding: '8px 14px', fontSize: '0.84rem' }}>
-              Inquiry
-            </a>
 
             {/* Mobile Hamburger Menu Toggle */}
             <button
               type="button"
-              className="mobile-hamburger-btn"
+              className={`mobile-hamburger-btn ${mobileMenuOpen ? 'active' : ''}`}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-label="Toggle Navigation Menu"
             >
-              {mobileMenuOpen ? '✕' : '☰'}
+              <span className="hamburger-bar"></span>
+              <span className="hamburger-bar"></span>
+              <span className="hamburger-bar"></span>
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation Drawer */}
+        {/* Mobile Navigation Drawer Backdrop & Sheet */}
         {mobileMenuOpen && (
-          <div className="mobile-nav-drawer">
-            <ul className="mobile-nav-list">
-              <li>
-                <a href="#services" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                  🚀 Our Services
-                </a>
-              </li>
-              <li>
-                <a href="#estimator" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                  📊 Project Scoper
-                </a>
-              </li>
-              <li>
-                <a href="#tech-stack" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                  ⚡ Technologies
-                </a>
-              </li>
-              <li>
-                <a href="#owner-connect" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                  📞 Contact Us
-                </a>
-              </li>
-              <li>
-                <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                  ✉️ Submit Inquiry
-                </a>
-              </li>
-              <li style={{ paddingTop: '8px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div className="mobile-nav-backdrop" onClick={() => setMobileMenuOpen(false)}>
+            <div className="mobile-nav-drawer" onClick={(e) => e.stopPropagation()}>
+              <div className="mobile-nav-header">
+                <span className="mobile-nav-title">Menu Navigation</span>
+                <button
+                  type="button"
+                  className="mobile-nav-close"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  ✕
+                </button>
+              </div>
+
+              <ul className="mobile-nav-list">
+                <li>
+                  <a href="#services" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                    <span className="nav-item-icon">🚀</span>
+                    <span>Our Services</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#projects-showcase" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                    <span className="nav-item-icon">🌐</span>
+                    <span>Projects & Websites</span>
+                    <span className="nav-live-badge-mobile">LIVE</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#estimator" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                    <span className="nav-item-icon">📊</span>
+                    <span>Project Scoper</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#tech-stack" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                    <span className="nav-item-icon">⚡</span>
+                    <span>Technologies</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#owner-connect" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                    <span className="nav-item-icon">📞</span>
+                    <span>Contact Leadership</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
+                    <span className="nav-item-icon">✉️</span>
+                    <span>Submit Inquiry</span>
+                  </a>
+                </li>
+              </ul>
+
+              <div className="mobile-nav-footer">
                 <a
                   href="/client-portal"
-                  className="btn btn-secondary"
-                  style={{ textAlign: 'center', width: '100%', padding: '10px' }}
+                  className="btn btn-secondary mobile-cta-btn"
                 >
-                  📂 Client Login
+                  📂 Client Portal Login
                 </a>
                 <button
                   onClick={() => {
@@ -541,13 +621,12 @@ export default function App() {
                     setSelectedOrderService(SOFTWARE_SERVICES[0]);
                     setOrderModalOpen(true);
                   }}
-                  className="btn btn-primary"
-                  style={{ width: '100%', padding: '10px' }}
+                  className="btn btn-primary mobile-cta-btn"
                 >
-                  🛒 Order Service
+                  🛒 Order Service Online
                 </button>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         )}
       </header>
@@ -835,6 +914,215 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* ====================================================================
+          Our Newest Projects & Live Hosted Websites Showcase Section
+          ==================================================================== */}
+      <section className="section showcase-section" id="projects-showcase">
+        <div className="container">
+          <div className="section-header">
+            <span className="badge-pill">Portfolio & Live Systems</span>
+            <h2 className="section-title">
+              Our Newest <span className="gradient-text">Deployed Projects & Websites</span>
+            </h2>
+            <p className="section-desc">
+              Explore websites and web applications built and hosted by Aveniq. Move your cursor over any website square to preview it live with full interactive scrolling.
+            </p>
+          </div>
+
+          {showcasesLoading ? (
+            <div style={{ textAlign: 'center', padding: '60px 20px', color: 'var(--text-muted)' }}>
+              <div className="pulse-dot" style={{ display: 'inline-block', width: '14px', height: '14px', marginBottom: '12px' }}></div>
+              <div>Loading live project websites...</div>
+            </div>
+          ) : showcases.length === 0 ? (
+            <div className="glass-card" style={{ textAlign: 'center', padding: '50px 20px', borderRadius: '16px' }}>
+              <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🚀</div>
+              <h3 style={{ color: '#fff', marginBottom: '6px' }}>New Projects Coming Soon</h3>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', maxWidth: '500px', margin: '0 auto' }}>
+                We are currently deploying our newest client systems. You can add new projects directly from the Admin Panel to showcase them here!
+              </p>
+            </div>
+          ) : (
+            <div className="showcase-rectangle-grid">
+              {showcases.map((proj) => (
+                <div
+                  key={proj.id}
+                  className="showcase-rectangle-card"
+                  onMouseEnter={() => handleOpenPreview(proj)}
+                  onMouseLeave={handleScheduleClosePreview}
+                  onClick={() => handleOpenPreview(proj)}
+                >
+                  {/* Browser-style Top Bar */}
+                  <div className="showcase-card-browser-bar">
+                    <div className="browser-dots">
+                      <span className="b-dot red"></span>
+                      <span className="b-dot yellow"></span>
+                      <span className="b-dot green"></span>
+                    </div>
+                    <div className="browser-address-pill">
+                      <span className="lock-icon">🔒</span>
+                      <span className="address-text">{proj.url.replace(/^https?:\/\//i, '')}</span>
+                    </div>
+                    <span className="showcase-tag-mini">{proj.tag || 'Live'}</span>
+                  </div>
+
+                  {/* Rectangle Website Screen Area */}
+                  <div className="showcase-screen-viewport">
+                    {/* Live iframe miniature view with scrolling capability */}
+                    <iframe
+                      src={proj.url}
+                      title={proj.name}
+                      className="showcase-embedded-iframe"
+                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                      loading="lazy"
+                    />
+
+                    {/* Interactive hover overlay */}
+                    <div className="showcase-screen-overlay">
+                      <div className="overlay-content">
+                        <span className="overlay-badge">⚡ Hover & Scroll Active</span>
+                        <h4 className="overlay-title">{proj.name}</h4>
+                        <p className="overlay-desc">{proj.description || 'Interactive live web system built with modern architecture.'}</p>
+                        <div className="overlay-actions">
+                          <button
+                            type="button"
+                            className="btn btn-primary overlay-btn"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleOpenPreview(proj);
+                            }}
+                          >
+                            🔍 Open Scroll View
+                          </button>
+                          <a
+                            href={proj.url}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="btn btn-secondary overlay-btn"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            ↗ Visit Hosted Site
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Bottom Meta */}
+                  <div className="showcase-card-footer">
+                    <div>
+                      <h4 className="showcase-proj-name">{proj.name}</h4>
+                      <p className="showcase-proj-domain">{proj.url}</p>
+                    </div>
+                    <a
+                      href={proj.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="showcase-launch-btn"
+                      title="Open external website in new tab"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      ↗
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* ====================================================================
+          POPUP HOVER / CLICK PREVIEW MODAL WITH FULL SCROLLABLE WINDOW
+          (Opens on mouse cursor entry, automatically closes when cursor leaves)
+          ==================================================================== */}
+      {previewModalProject && (
+        <div
+          className="showcase-modal-overlay"
+          onClick={() => setPreviewModalProject(null)}
+          onMouseEnter={handleCancelClosePreview}
+          onMouseLeave={handleScheduleClosePreview}
+        >
+          <div
+            className="showcase-modal-window"
+            onClick={(e) => e.stopPropagation()}
+            onMouseEnter={handleCancelClosePreview}
+            onMouseLeave={handleScheduleClosePreview}
+          >
+            {/* Modal Browser Header */}
+            <div className="showcase-modal-header">
+              <div className="browser-dots" style={{ gap: '6px' }}>
+                <span className="b-dot red" onClick={() => setPreviewModalProject(null)} style={{ cursor: 'pointer' }} title="Close"></span>
+                <span className="b-dot yellow"></span>
+                <span className="b-dot green"></span>
+              </div>
+
+              <div className="showcase-modal-url-bar">
+                <span className="lock-icon">🔒</span>
+                <span className="modal-url-text">{previewModalProject.url}</span>
+                <span className="url-badge-verified">SSL SECURE</span>
+              </div>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <a
+                  href={previewModalProject.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn btn-primary"
+                  style={{ padding: '6px 14px', fontSize: '0.8rem', textDecoration: 'none' }}
+                >
+                  ↗ Open Full Tab
+                </a>
+                <button
+                  type="button"
+                  className="showcase-modal-close-btn"
+                  onClick={() => setPreviewModalProject(null)}
+                  title="Close popup"
+                >
+                  ✕
+                </button>
+              </div>
+            </div>
+
+            {/* Modal Info Bar */}
+            <div className="showcase-modal-subbar">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span className="showcase-tag-pill">{previewModalProject.tag || 'Project Website'}</span>
+                <strong style={{ color: '#fff', fontSize: '0.98rem' }}>{previewModalProject.name}</strong>
+              </div>
+              <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
+                Hover & scroll inside this window. Moving your cursor outside will automatically close the preview.
+              </div>
+            </div>
+
+            {/* Scrollable Square/Rectangle Iframe Area */}
+            <div
+              className="showcase-modal-scroll-frame"
+              onMouseEnter={handleCancelClosePreview}
+            >
+              {!iframeLoaded && (
+                <div className="showcase-iframe-loader">
+                  <div className="loader-spinner"></div>
+                  <div style={{ marginTop: '14px', fontSize: '0.9rem', color: '#00e5ff' }}>
+                    Loading preview for {previewModalProject.name}...
+                  </div>
+                  <div style={{ marginTop: '4px', fontSize: '0.78rem', color: 'rgba(255,255,255,0.5)' }}>
+                    Scrollable window rendering hosted website
+                  </div>
+                </div>
+              )}
+              <iframe
+                src={previewModalProject.url}
+                title={previewModalProject.name}
+                className="showcase-modal-iframe"
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                onLoad={() => setIframeLoaded(true)}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* ====================================================================
           Tech Radar

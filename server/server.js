@@ -622,6 +622,54 @@ app.delete('/api/admin/orders/:id', requireAdmin, (req, res) => {
   res.json({ success: true, message: `Order ${id} removed.` });
 });
 
+// ==========================================
+// SHOWCASE WEBSITES (NEWEST PROJECTS)
+// ==========================================
+
+// Public: Get all showcase projects
+app.get('/api/showcases', (req, res) => {
+  const showcases = db.prepare('SELECT * FROM showcases ORDER BY createdAt DESC').all();
+  res.json({ success: true, count: showcases.length, showcases });
+});
+
+// Admin: Create new showcase project
+app.post('/api/admin/showcases', requireAdmin, (req, res) => {
+  let { name, url, description, tag } = req.body;
+  if (!name || !url) {
+    return res.status(400).json({ success: false, error: 'Website name and hosted link are required.' });
+  }
+
+  let formattedUrl = url.trim();
+  if (!/^https?:\/\//i.test(formattedUrl)) {
+    formattedUrl = 'https://' + formattedUrl;
+  }
+
+  const id = 'sc_' + Date.now();
+  const now = new Date().toISOString();
+
+  db.prepare(`
+    INSERT INTO showcases (id, name, url, description, tag, createdAt)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `).run(id, name.trim(), formattedUrl, (description || '').trim(), (tag || 'Web Project').trim(), now);
+
+  const newShowcase = db.prepare('SELECT * FROM showcases WHERE id = ?').get(id);
+  broadcastToRole('admin', { type: 'showcase_created', showcase: newShowcase });
+
+  res.status(201).json({
+    success: true,
+    message: 'Showcase project added successfully!',
+    showcase: newShowcase
+  });
+});
+
+// Admin: Delete showcase project
+app.delete('/api/admin/showcases/:id', requireAdmin, (req, res) => {
+  const { id } = req.params;
+  db.prepare('DELETE FROM showcases WHERE id = ?').run(id);
+  broadcastToRole('admin', { type: 'showcase_deleted', id });
+  res.json({ success: true, message: `Showcase project ${id} removed.` });
+});
+
 // Admin stats summary
 app.get('/api/stats', (req, res) => {
   const inquiriesCount = db.prepare('SELECT COUNT(*) as count FROM inquiries').get().count;
