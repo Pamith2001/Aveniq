@@ -1133,7 +1133,7 @@ export default function App() {
             <div className="showcase-modal-subbar">
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <span className="showcase-tag-pill">{previewModalProject.tag || 'Project Website'}</span>
-                <strong style={{ color: '#fff', fontSize: '0.98rem' }}>{previewModalProject.name}</strong>
+                <strong className="showcase-modal-proj-title">{previewModalProject.name}</strong>
               </div>
               <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
                 Hover & scroll inside this window. Moving your cursor outside will automatically close the preview.
