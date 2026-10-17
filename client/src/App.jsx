@@ -76,6 +76,27 @@ const TECH_STACK = [
   { category: 'Hosting & Tools', items: ['Linux Cloud Servers', 'cPanel / DirectAdmin', 'GitHub', 'SSL / HTTPS', 'Domain Management'] }
 ];
 
+const LANGUAGE_TRAY_ITEMS = [
+  { name: 'React', category: 'Frontend UI', icon: '⚛️', color: '#00d8ff' },
+  { name: 'JavaScript', category: 'Core Script', icon: '⚡', color: '#f7df1e' },
+  { name: 'TypeScript', category: 'Typed JS', icon: '🔷', color: '#3178c6' },
+  { name: 'HTML5', category: 'Structure', icon: '🌐', color: '#e34f26' },
+  { name: 'CSS3', category: 'Styling', icon: '🎨', color: '#1572b6' },
+  { name: 'Node.js', category: 'Runtime', icon: '🟢', color: '#5fa04e' },
+  { name: 'Express', category: 'API Framework', icon: '🚂', color: '#000000' },
+  { name: 'Python', category: 'AI & Backend', icon: '🐍', color: '#3776ab' },
+  { name: 'PHP', category: 'Web Backend', icon: '🐘', color: '#777bb4' },
+  { name: 'PostgreSQL', category: 'Relational DB', icon: '🐘', color: '#336791' },
+  { name: 'MySQL', category: 'SQL Database', icon: '🐬', color: '#00758f' },
+  { name: 'MongoDB', category: 'NoSQL Engine', icon: '🍃', color: '#47a248' },
+  { name: 'Redis', category: 'In-Memory Cache', icon: '🔴', color: '#dc382d' },
+  { name: 'Cloudflare', category: 'Edge Workers', icon: '⛅', color: '#f38020' },
+  { name: 'Docker', category: 'Containers', icon: '🐳', color: '#2496ed' },
+  { name: 'Git', category: 'Version Control', icon: '🐙', color: '#f05032' },
+  { name: 'Vite', category: 'Build Engine', icon: '⚡', color: '#bd34fe' },
+  { name: 'Tailwind', category: 'Utility CSS', icon: '🌊', color: '#06b6d4' }
+];
+
 export default function App() {
   const [currentPath, setCurrentPath] = useState(() => window.location.pathname);
 
@@ -1141,6 +1162,46 @@ export default function App() {
             <p className="section-desc">
               We leverage modern runtimes, typed languages, and high-performance infrastructure to ensure uncompromised speed and reliability.
             </p>
+          </div>
+
+          {/* Interactive Mac-Dock Moving Languages Tray */}
+          <div className="language-tray-wrapper">
+            <div className="language-tray-header">
+              <span className="tray-live-indicator">
+                <span className="tray-live-dot"></span>
+                <span>Active Continuous Infinite Runtime Flow</span>
+              </span>
+              <span className="tray-hint-label">Hover over any language icon for macOS dock magnification</span>
+            </div>
+
+            <div className="language-marquee-container">
+              <div className="language-marquee-track">
+                {/* Loop 1 */}
+                {LANGUAGE_TRAY_ITEMS.map((item, idx) => (
+                  <div key={`tray-1-${idx}`} className="mac-dock-item" style={{ '--accent-color': item.color }}>
+                    <div className="mac-dock-icon-box">
+                      <span className="mac-dock-icon">{item.icon}</span>
+                    </div>
+                    <div className="mac-dock-tooltip">
+                      <span className="dock-tooltip-name">{item.name}</span>
+                      <span className="dock-tooltip-category">{item.category}</span>
+                    </div>
+                  </div>
+                ))}
+                {/* Loop 2 for seamless infinite ticker */}
+                {LANGUAGE_TRAY_ITEMS.map((item, idx) => (
+                  <div key={`tray-2-${idx}`} className="mac-dock-item" style={{ '--accent-color': item.color }}>
+                    <div className="mac-dock-icon-box">
+                      <span className="mac-dock-icon">{item.icon}</span>
+                    </div>
+                    <div className="mac-dock-tooltip">
+                      <span className="dock-tooltip-name">{item.name}</span>
+                      <span className="dock-tooltip-category">{item.category}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           <div className="radar-grid">
