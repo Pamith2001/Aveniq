@@ -761,7 +761,7 @@
   font-weight: 700;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  color: var(--brand-cyan);
+  color: #2563EB; /* Matching single button blue */
   font-family: var(--font-mono);
 }
 
@@ -769,8 +769,8 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--brand-cyan);
-  box-shadow: 0 0 10px var(--brand-cyan);
+  background: #2563EB;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.5);
   animation: pulse-ring 1.8s infinite ease-in-out;
 }
 
@@ -951,7 +951,9 @@
 .tech-node-badge {
   font-family: var(--font-mono);
   font-size: 0.72rem;
-  color: var(--brand-cyan);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #2563EB; /* Matching single button blue */
   text-transform: uppercase;
 }
 

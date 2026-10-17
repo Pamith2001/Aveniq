@@ -63,9 +63,10 @@
   --text-dim: #64748B; /* Elegant slate grey */
   --text-accent: #0284C7; /* Radiant oceanic light blue */
 
-  --badge-bg: rgba(14, 165, 233, 0.12);
-  --badge-border: rgba(14, 165, 233, 0.35);
-  --badge-text: #0369A1;
+  --brand-cyan: #2563EB; /* Matching solid button blue for all cyan highlights in light mode */
+  --badge-bg: rgba(37, 99, 235, 0.1);
+  --badge-border: rgba(37, 99, 235, 0.28);
+  --badge-text: #2563EB;
 
   --grid-line: rgba(14, 165, 233, 0.06);
   --radial-glow: rgba(186, 230, 253, 0.55); /* Luminous light blue glow */

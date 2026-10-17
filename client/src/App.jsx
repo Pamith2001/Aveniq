@@ -1242,7 +1242,7 @@ export default function App() {
                       }}
                     >
                       <span>{tech}</span>
-                      <span style={{ color: 'var(--brand-cyan)', fontSize: '0.75rem' }}>Active</span>
+                      <span style={{ color: '#2563EB', fontWeight: '700', fontSize: '0.78rem' }}>Active</span>
                     </div>
                   ))}
                 </div>
