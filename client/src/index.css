@@ -183,162 +183,61 @@ h1, h2, h3, h4, h5, h6 {
   100% { transform: scale(0.9); opacity: 0.8; }
 }
 
-/* ==========================================================================
-   Ultra-Modern 3D Tactile Buttons & Shimmer Animations
-   ========================================================================== */
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.95rem;
-  letter-spacing: 0.015em;
   padding: 13px 26px;
-  border-radius: 14px;
+  border-radius: 12px;
   cursor: pointer;
-  transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
+  border: 1px solid transparent;
   position: relative;
   overflow: hidden;
-  user-select: none;
 }
 
-/* Moving Light Shimmer Sheen on all 3D buttons */
-.btn::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -60%;
-  width: 40%;
-  height: 200%;
-  background: linear-gradient(
-    60deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0) 30%,
-    rgba(255, 255, 255, 0.45) 50%,
-    rgba(255, 255, 255, 0) 70%,
-    transparent 100%
-  );
-  transform: rotate(25deg);
-  pointer-events: none;
-  transition: all 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  opacity: 0;
-}
-
-.btn:hover::after {
-  left: 130%;
-  opacity: 1;
-}
-
-/* 3D Primary Button: High-Tech Electric Blue & Indigo */
 .btn-primary {
-  background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  border-bottom: 4px solid #1e3a8a; /* 3D bottom bevel */
-  box-shadow: 
-    0 4px 0 #1e3a8a,
-    0 10px 24px -4px rgba(37, 99, 235, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.4);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  background: var(--brand-gradient);
+  color: #FFFFFF;
+  box-shadow: 0 4px 20px rgba(0, 229, 255, 0.35);
 }
 
 .btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  border-bottom: 5px solid #172554;
-  box-shadow: 
-    0 6px 0 #172554,
-    0 16px 32px -4px rgba(37, 99, 235, 0.6),
-    0 0 25px rgba(2, 132, 199, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  background: linear-gradient(135deg, #0369a1 0%, #1d4ed8 50%, #4338ca 100%);
+  background: var(--brand-gradient-hover);
+  box-shadow: 0 6px 28px rgba(0, 229, 255, 0.5);
+  transform: translateY(-2px);
 }
 
-.btn-primary:active {
-  transform: translateY(2px) scale(0.99);
-  border-bottom: 2px solid #1e3a8a;
-  box-shadow: 
-    0 1px 0 #1e3a8a,
-    0 4px 12px rgba(37, 99, 235, 0.3);
-}
-
-/* 3D Secondary Button: Frost Crystal White Glass */
 .btn-secondary {
-  background: var(--bg-surface);
-  border: 1px solid rgba(2, 132, 199, 0.22);
-  border-bottom: 4px solid #cbd5e1; /* 3D bottom bevel */
-  color: var(--text-main) !important;
-  box-shadow: 
-    0 4px 0 #cbd5e1,
-    0 8px 20px -3px rgba(15, 23, 42, 0.08),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-}
-
-[data-theme="dark"] .btn-secondary {
-  background: #0f172a;
-  border-color: rgba(0, 229, 255, 0.25);
-  border-bottom: 4px solid #0284c7;
-  box-shadow: 
-    0 4px 0 #0284c7,
-    0 8px 22px rgba(0, 0, 0, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: var(--bg-surface-glass);
+  border: 1px solid var(--border-glass);
+  color: var(--text-main);
+  backdrop-filter: blur(12px);
 }
 
 .btn-secondary:hover {
-  transform: translateY(-3px) scale(1.02);
-  border-color: #0284c7;
-  border-bottom: 5px solid #94a3b8;
-  color: #0284c7 !important;
-  box-shadow: 
-    0 6px 0 #94a3b8,
-    0 14px 28px -4px rgba(2, 132, 199, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 1);
+  border-color: var(--brand-cyan);
+  color: var(--brand-cyan);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
+  transform: translateY(-2px);
 }
 
-[data-theme="dark"] .btn-secondary:hover {
-  border-bottom: 5px solid #00e5ff;
-  color: #00e5ff !important;
-  box-shadow: 
-    0 6px 0 #00e5ff,
-    0 14px 30px rgba(0, 229, 255, 0.35);
-}
-
-.btn-secondary:active {
-  transform: translateY(2px) scale(0.99);
-  border-bottom: 2px solid #cbd5e1;
-  box-shadow: 0 1px 0 #cbd5e1;
-}
-
-/* 3D Accent Button: Emerald WhatsApp */
 .btn-accent {
-  background: linear-gradient(135deg, #25D366 0%, #16a34a 100%);
-  color: #FFFFFF !important;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-bottom: 4px solid #14532d; /* 3D bottom bevel */
-  box-shadow: 
-    0 4px 0 #14532d,
-    0 10px 24px -4px rgba(37, 211, 102, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  background: #25D366; /* WhatsApp brand */
+  color: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(37, 211, 102, 0.3);
 }
 
 .btn-accent:hover {
-  transform: translateY(-3px) scale(1.02);
-  border-bottom: 5px solid #052e16;
-  background: linear-gradient(135deg, #22c55e 0%, #15803d 100%);
-  box-shadow: 
-    0 6px 0 #052e16,
-    0 16px 32px -4px rgba(37, 211, 102, 0.6),
-    0 0 25px rgba(37, 211, 102, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-}
-
-.btn-accent:active {
-  transform: translateY(2px) scale(0.99);
-  border-bottom: 2px solid #14532d;
-  box-shadow: 0 1px 0 #14532d;
+  background: #22BF5B;
+  box-shadow: 0 6px 24px rgba(37, 211, 102, 0.45);
+  transform: translateY(-2px);
 }
 
 /* Glass Card */
