@@ -534,12 +534,13 @@
 }
 
 /* ==========================================================================
-   Services Grid
+   Services Grid (4 Services in One Horizontal Line)
    ========================================================================== */
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  align-items: stretch;
 }
 
 .service-card {

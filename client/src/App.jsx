@@ -61,24 +61,19 @@ const TECH_STACK = [
 ];
 
 const LANGUAGE_TRAY_ITEMS = [
-  { name: 'React', category: 'Frontend UI', icon: '⚛️', color: '#00d8ff' },
-  { name: 'JavaScript', category: 'Core Script', icon: '⚡', color: '#f7df1e' },
-  { name: 'TypeScript', category: 'Typed JS', icon: '🔷', color: '#3178c6' },
-  { name: 'HTML5', category: 'Structure', icon: '🌐', color: '#e34f26' },
-  { name: 'CSS3', category: 'Styling', icon: '🎨', color: '#1572b6' },
-  { name: 'Node.js', category: 'Runtime', icon: '🟢', color: '#5fa04e' },
-  { name: 'Express', category: 'API Framework', icon: '🚂', color: '#000000' },
+  { name: 'Java', category: 'Enterprise Core', icon: '☕', color: '#ea2d2e' },
   { name: 'Python', category: 'AI & Backend', icon: '🐍', color: '#3776ab' },
+  { name: 'Node.js', category: 'JS Runtime', icon: '🟢', color: '#5fa04e' },
+  { name: 'JavaScript', category: 'Web Script', icon: '⚡', color: '#f7df1e' },
+  { name: 'TypeScript', category: 'Typed Language', icon: '🔷', color: '#3178c6' },
+  { name: 'Go', category: 'Systems & Cloud', icon: '🐹', color: '#00add8' },
+  { name: 'C++', category: 'High Performance', icon: '⚙️', color: '#00599c' },
+  { name: 'C# / .NET', category: 'Enterprise Apps', icon: '🎯', color: '#239120' },
   { name: 'PHP', category: 'Web Backend', icon: '🐘', color: '#777bb4' },
-  { name: 'PostgreSQL', category: 'Relational DB', icon: '🐘', color: '#336791' },
-  { name: 'MySQL', category: 'SQL Database', icon: '🐬', color: '#00758f' },
-  { name: 'MongoDB', category: 'NoSQL Engine', icon: '🍃', color: '#47a248' },
-  { name: 'Redis', category: 'In-Memory Cache', icon: '🔴', color: '#dc382d' },
-  { name: 'Cloudflare', category: 'Edge Workers', icon: '⛅', color: '#f38020' },
-  { name: 'Docker', category: 'Containers', icon: '🐳', color: '#2496ed' },
-  { name: 'Git', category: 'Version Control', icon: '🐙', color: '#f05032' },
-  { name: 'Vite', category: 'Build Engine', icon: '⚡', color: '#bd34fe' },
-  { name: 'Tailwind', category: 'Utility CSS', icon: '🌊', color: '#06b6d4' }
+  { name: 'Rust', category: 'Memory-Safe Systems', icon: '🦀', color: '#dea584' },
+  { name: 'Kotlin', category: 'Android & Server', icon: '📱', color: '#7f52ff' },
+  { name: 'Swift', category: 'Apple iOS Native', icon: '🍎', color: '#fa7343' },
+  { name: 'SQL', category: 'Database Query', icon: '💾', color: '#336791' }
 ];
 
 export default function App() {
@@ -1193,9 +1188,8 @@ export default function App() {
             <div className="language-tray-header">
               <span className="tray-live-indicator">
                 <span className="tray-live-dot"></span>
-                <span>Active Continuous Infinite Runtime Flow</span>
+                <span>Supported Technologies & Programming Languages</span>
               </span>
-              <span className="tray-hint-label">Hover over any language icon for macOS dock magnification</span>
             </div>
 
             <div className="language-marquee-container">
