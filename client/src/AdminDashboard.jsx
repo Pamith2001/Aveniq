@@ -921,13 +921,13 @@ export default function AdminDashboard() {
                 style={{ padding: '10px 14px', fontSize: '0.88rem' }}
               />
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div className="admin-filter-client-box" style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <label style={{ fontSize: '0.84rem', color: 'rgba(255,255,255,0.85)', fontWeight: '500' }}>Filter by Client:</label>
               <select
                 value={projectFilterClient}
                 onChange={(e) => setProjectFilterClient(e.target.value)}
                 className="admin-edit-field"
-                style={{ padding: '8px 12px', minWidth: '170px' }}
+                style={{ padding: '8px 12px', minWidth: 'min(170px, 100%)', width: 'auto' }}
               >
                 <option value="ALL">All Clients ({clientsList.length})</option>
                 {clientsList.map(c => (
