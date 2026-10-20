@@ -491,7 +491,6 @@ export default function App() {
                   <span className="nav-live-badge">LIVE</span>
                 </a>
               </li>
-              <li><a href="#estimator" className="nav-link">Project Scoper</a></li>
               <li><a href="#owner-connect" className="nav-link">Contact</a></li>
             </ul>
           </nav>
@@ -595,11 +594,6 @@ export default function App() {
                   <a href="#projects-showcase" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
                     <span>Projects & Websites</span>
                     <span className="nav-live-badge-mobile">LIVE</span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#estimator" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                    <span>Project Scoper</span>
                   </a>
                 </li>
                 <li>
@@ -820,114 +814,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* ====================================================================
-          Project Scoper Section
-          ==================================================================== */}
-      <section className="section scroll-reveal" id="estimator" style={{ background: 'var(--bg-surface)' }}>
-        <div className="container">
-          <div className="section-header">
-            <span className="badge-pill">Project Scoper</span>
-            <h2 className="section-title">
-              Configure Your <span className="gradient-text">Project Requirements</span>
-            </h2>
-            <p className="section-desc">
-              Select your required software service, company size, and delivery timeline to plan your development roadmap.
-            </p>
-          </div>
 
-          <div className="estimator-container">
-            <div className="glass-card calc-panel">
-              <div className="calc-group">
-                <label className="calc-label">1. Primary Software Service</label>
-                <div className="pill-selector-row">
-                  {['Web & Mobile App', 'Business Management Software', 'E-Commerce Store', 'Cloud & Hosting'].map((srv) => (
-                    <button
-                      key={srv}
-                      type="button"
-                      className={`select-pill-btn ${estService === srv ? 'active' : ''}`}
-                      onClick={() => setEstService(srv)}
-                    >
-                      {srv}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="calc-group">
-                <label className="calc-label">2. Business Scale</label>
-                <div className="pill-selector-row">
-                  {['Small Business / Startup', 'Medium Enterprise', 'Established Company'].map((scale) => (
-                    <button
-                      key={scale}
-                      type="button"
-                      className={`select-pill-btn ${estScale === scale ? 'active' : ''}`}
-                      onClick={() => setEstScale(scale)}
-                    >
-                      {scale}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className="calc-group">
-                <label className="calc-label">3. Desired Completion Timeline</label>
-                <div className="pill-selector-row">
-                  {['Fast-Track (1-2 Weeks)', 'Standard (2-4 Weeks)', 'Full Phase (4-8 Weeks)'].map((t) => (
-                    <button
-                      key={t}
-                      type="button"
-                      className={`select-pill-btn ${estTimeline === t ? 'active' : ''}`}
-                      onClick={() => setEstTimeline(t)}
-                    >
-                      {t}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Scoper Summary Output */}
-            <div className="glass-card calc-summary-card">
-              <h3 className="summary-headline">Project Overview</h3>
-              <div className="estimate-output-box">
-                <div className="est-amount" style={{ fontSize: '1.25rem' }}>
-                  {estService}
-                </div>
-                <div className="est-timeline" style={{ marginTop: '6px' }}>Target Delivery: {estTimeline}</div>
-              </div>
-
-              <ul className="est-deliverables">
-                <li className="est-deliverable-item">
-                  <span className="check-dot">✓</span>
-                  <span>Modern, clean and responsive web & mobile UI</span>
-                </li>
-                <li className="est-deliverable-item">
-                  <span className="check-dot">✓</span>
-                  <span>Complete source code and full ownership</span>
-                </li>
-                <li className="est-deliverable-item">
-                  <span className="check-dot">✓</span>
-                  <span>Direct phone & WhatsApp technical support</span>
-                </li>
-                <li className="est-deliverable-item">
-                  <span className="check-dot">✓</span>
-                  <span>Free deployment, domain and SSL setup support</span>
-                </li>
-              </ul>
-
-              <button
-                type="button"
-                onClick={applyEstimateToForm}
-                className="btn btn-primary"
-                style={{ width: '100%' }}
-                id="apply-estimate-btn"
-              >
-                Send as Project Inquiry →
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ====================================================================
           Our Newest Projects & Live Hosted Websites Showcase Section
