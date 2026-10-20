@@ -910,24 +910,24 @@ export default function AdminDashboard() {
           </div>
 
           {/* Search & Filter Controls */}
-          <div className="glass-card" style={{ padding: '12px 18px', marginBottom: '20px', display: 'flex', flexWrap: 'wrap', gap: '14px', alignItems: 'center' }}>
+          <div className="admin-filter-tray" style={{ padding: '16px 20px', marginBottom: '20px', display: 'flex', flexWrap: 'wrap', gap: '14px', alignItems: 'center', background: '#0e172a', border: '1px solid rgba(0, 229, 255, 0.25)', borderRadius: '14px', boxShadow: '0 8px 24px rgba(0, 0, 0, 0.45)' }}>
             <div style={{ flex: '1 1 240px' }}>
               <input
                 type="text"
-                placeholder="🔍 Search projects by title, client, or status..."
+                placeholder="Search projects by title, client, or status..."
                 value={projectSearchTerm}
                 onChange={(e) => setProjectSearchTerm(e.target.value)}
                 className="admin-input-field"
-                style={{ padding: '8px 14px', fontSize: '0.88rem' }}
+                style={{ padding: '10px 14px', fontSize: '0.88rem' }}
               />
             </div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <label style={{ fontSize: '0.82rem', color: 'rgba(255,255,255,0.7)' }}>Filter by Client:</label>
+              <label style={{ fontSize: '0.84rem', color: 'rgba(255,255,255,0.85)', fontWeight: '500' }}>Filter by Client:</label>
               <select
                 value={projectFilterClient}
                 onChange={(e) => setProjectFilterClient(e.target.value)}
                 className="admin-edit-field"
-                style={{ padding: '6px 12px', minWidth: '160px' }}
+                style={{ padding: '8px 12px', minWidth: '170px' }}
               >
                 <option value="ALL">All Clients ({clientsList.length})</option>
                 {clientsList.map(c => (
@@ -1686,13 +1686,13 @@ export default function AdminDashboard() {
           </div>
 
           {/* Inline Quick-Add Card */}
-          <div className="glass-card" style={{ padding: '20px 24px', marginBottom: '24px', border: '1px solid rgba(0, 229, 255, 0.25)', background: 'linear-gradient(135deg, rgba(0, 229, 255, 0.05), rgba(41, 121, 255, 0.03))' }}>
-            <h4 style={{ margin: '0 0 12px 0', color: '#00e5ff', fontSize: '1rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>🚀 Quick Add New Project Website</span>
+          <div className="admin-quick-add-tray" style={{ padding: '22px 24px', marginBottom: '24px', border: '1px solid rgba(0, 229, 255, 0.3)', background: '#0e172a', borderRadius: '16px', boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)' }}>
+            <h4 style={{ margin: '0 0 14px 0', color: '#00e5ff', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <span>Quick Add New Project Website</span>
             </h4>
             <form onSubmit={handleCreateShowcase} style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', alignItems: 'flex-end' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)', marginBottom: '5px' }}>
                   Website Name *
                 </label>
                 <input
@@ -1701,12 +1701,12 @@ export default function AdminDashboard() {
                   value={showcaseForm.name}
                   onChange={(e) => setShowcaseForm(prev => ({ ...prev, name: e.target.value }))}
                   required
-                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(6,11,22,0.85)', border: '1px solid rgba(0,229,255,0.22)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)', marginBottom: '5px' }}>
                   Hosted Link (URL) *
                 </label>
                 <input
@@ -1715,18 +1715,18 @@ export default function AdminDashboard() {
                   value={showcaseForm.url}
                   onChange={(e) => setShowcaseForm(prev => ({ ...prev, url: e.target.value }))}
                   required
-                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(6,11,22,0.85)', border: '1px solid rgba(0,229,255,0.22)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
                 />
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)', marginBottom: '5px' }}>
                   Category Tag
                 </label>
                 <select
                   value={showcaseForm.tag}
                   onChange={(e) => setShowcaseForm(prev => ({ ...prev, tag: e.target.value }))}
-                  style={{ width: '100%', padding: '10px 14px', background: '#0f172a', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 14px', background: '#090f1d', border: '1px solid rgba(0,229,255,0.22)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
                 >
                   <option value="Web Platform">Web Platform</option>
                   <option value="E-Commerce Store">E-Commerce Store</option>
@@ -1738,7 +1738,7 @@ export default function AdminDashboard() {
               </div>
 
               <div>
-                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '5px' }}>
+                <label style={{ display: 'block', fontSize: '0.8rem', color: 'rgba(255,255,255,0.8)', marginBottom: '5px' }}>
                   Short Summary / Notes
                 </label>
                 <input
@@ -1746,7 +1746,7 @@ export default function AdminDashboard() {
                   placeholder="e.g. High-throughput delivery management system"
                   value={showcaseForm.description}
                   onChange={(e) => setShowcaseForm(prev => ({ ...prev, description: e.target.value }))}
-                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(0,0,0,0.4)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
+                  style={{ width: '100%', padding: '10px 14px', background: 'rgba(6,11,22,0.85)', border: '1px solid rgba(0,229,255,0.22)', borderRadius: '8px', color: '#fff', fontSize: '0.9rem' }}
                 />
               </div>
 
@@ -1764,7 +1764,7 @@ export default function AdminDashboard() {
 
             {showcaseFormError && (
               <div style={{ marginTop: '12px', padding: '8px 12px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid rgba(239, 68, 68, 0.3)', borderRadius: '6px', color: '#ef4444', fontSize: '0.85rem' }}>
-                ⚠️ {showcaseFormError}
+                {showcaseFormError}
               </div>
             )}
             {showcaseFormSuccess && (
@@ -1777,14 +1777,13 @@ export default function AdminDashboard() {
           {/* Showcases Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
             {showcasesList.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '50px 20px', color: 'rgba(255,255,255,0.5)', gridColumn: '1 / -1', background: 'rgba(255,255,255,0.02)', borderRadius: '16px' }}>
-                <div style={{ fontSize: '2.4rem', marginBottom: '12px' }}>🌐</div>
+              <div style={{ textAlign: 'center', padding: '50px 20px', color: 'rgba(255,255,255,0.5)', gridColumn: '1 / -1', background: 'rgba(14, 23, 42, 0.85)', border: '1px solid rgba(0, 229, 255, 0.15)', borderRadius: '16px' }}>
                 <div style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '6px' }}>No Showcase Projects Added Yet</div>
                 <p style={{ fontSize: '0.88rem' }}>Add your newest projects above. They will be displayed in interactive scrollable cards on the public Aveniq page.</p>
               </div>
             ) : (
               showcasesList.map((item) => (
-                <div key={item.id} className="glass-card" style={{ padding: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px', position: 'relative', overflow: 'hidden' }}>
+                <div key={item.id} className="admin-showcase-card" style={{ padding: '22px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: 'rgba(14, 23, 42, 0.88)', border: '1px solid rgba(0, 229, 255, 0.22)', borderRadius: '16px', position: 'relative', overflow: 'hidden', boxShadow: '0 8px 24px rgba(0,0,0,0.45)' }}>
                   <div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
                       <span style={{ fontSize: '0.74rem', padding: '3px 10px', borderRadius: '12px', background: 'rgba(0, 229, 255, 0.12)', color: '#00e5ff', border: '1px solid rgba(0, 229, 255, 0.25)', fontWeight: '600' }}>

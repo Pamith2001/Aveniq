@@ -3999,10 +3999,19 @@ textarea.input-control {
 }
 
 .admin-project-manage-card {
-  background: #0c1424;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(14, 23, 42, 0.88) !important;
+  border: 1px solid rgba(0, 229, 255, 0.22) !important;
   border-radius: 16px;
-  padding: 20px;
+  padding: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 229, 255, 0.04);
+  backdrop-filter: blur(14px);
+  transition: all 0.3s ease;
+}
+
+.admin-project-manage-card:hover {
+  border-color: rgba(0, 229, 255, 0.45) !important;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.65), 0 0 25px rgba(0, 229, 255, 0.12);
+  transform: translateY(-2px);
 }
 
 .admin-proj-card-top {
@@ -4013,26 +4022,64 @@ textarea.input-control {
 }
 
 .admin-percent-slider-box {
-  background: rgba(0, 0, 0, 0.35);
+  background: rgba(6, 11, 22, 0.85) !important;
   padding: 14px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 229, 255, 0.18) !important;
+}
+
+/* Admin Tray Panels & Showcase Cards Specific Override to eliminate grey trays */
+.admin-portal-wrapper .glass-card,
+.admin-filter-tray,
+.admin-quick-add-tray,
+.admin-showcase-card {
+  background: rgba(14, 23, 42, 0.88) !important;
+  border: 1px solid rgba(0, 229, 255, 0.22) !important;
+  color: #fff !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 15px rgba(0, 229, 255, 0.05);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+}
+
+.admin-portal-wrapper .glass-card:hover,
+.admin-showcase-card:hover {
+  border-color: rgba(0, 229, 255, 0.5) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 25px rgba(0, 229, 255, 0.15);
+  transform: translateY(-2px);
 }
 
 .admin-edit-field {
   width: 100%;
   padding: 8px 10px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(6, 11, 22, 0.75) !important;
+  border: 1px solid rgba(0, 229, 255, 0.22) !important;
   border-radius: 8px;
-  color: #fff;
+  color: #fff !important;
   font-size: 0.82rem;
   outline: none;
   box-sizing: border-box;
 }
 
 .admin-edit-field:focus {
-  border-color: #00e5ff;
+  border-color: #00e5ff !important;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.3);
+}
+
+.admin-input-field {
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(6, 11, 22, 0.75) !important;
+  border: 1px solid rgba(0, 229, 255, 0.22) !important;
+  border-radius: 8px;
+  color: #fff !important;
+  font-size: 0.9rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.admin-input-field:focus {
+  border-color: #00e5ff !important;
+  box-shadow: 0 0 12px rgba(0, 229, 255, 0.3);
 }
 
 /* Modals */
