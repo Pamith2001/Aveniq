@@ -423,7 +423,6 @@
   border: 1px solid var(--border-glass);
   backdrop-filter: blur(20px);
   box-shadow: var(--shadow-card);
-  animation: floatSlow 6s ease-in-out infinite;
 }
 
 .hero-hologram-header {

@@ -22,7 +22,13 @@ const SERVICES_DATA = [
   {
     id: 'web-development',
     name: 'Web Development',
-    icon: '🌐',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <line x1="2" y1="12" x2="22" y2="12" />
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+      </svg>
+    ),
     summary: 'High-performance corporate websites, robust web applications, e-commerce stores, and custom client management portals built with modern frameworks.',
     features: ['Responsive UI on Mobile, Tablet & Desktop', 'Fast Page Load & Clean React/Vite Architecture', 'SEO Optimization & Google Search Ranking', 'Custom REST APIs & WhatsApp Direct Connect'],
     tech: ['React.js', 'Next.js', 'Node.js', 'Tailwind CSS', 'TypeScript']
@@ -30,7 +36,12 @@ const SERVICES_DATA = [
   {
     id: 'mobile-app',
     name: 'Mobile App Development',
-    icon: '📱',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2" />
+        <line x1="12" y1="18" x2="12.01" y2="18" />
+      </svg>
+    ),
     summary: 'Native and cross-platform mobile apps for iOS and Android tailored for smooth user flows, offline capability, and high engagement.',
     features: ['Cross-Platform iOS & Android Apps', 'Fluid Native Gestures & 60fps Animations', 'Push Notifications & Real-Time Sync', 'App Store & Google Play Launch Assistance'],
     tech: ['React Native', 'Flutter', 'Firebase', 'REST APIs', 'Node.js']
@@ -38,7 +49,14 @@ const SERVICES_DATA = [
   {
     id: 'ui-ux-design',
     name: 'UI/UX Design',
-    icon: '🎨',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 19l7-7 3 3-7 7-3-3z" />
+        <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+        <path d="M2 2l7.586 7.586" />
+        <circle cx="11" cy="11" r="2" />
+      </svg>
+    ),
     summary: 'User-centered product design, interactive wireframing, high-fidelity prototypes, and sleek modern design systems created in Figma.',
     features: ['Modern Intuitive User Journey Mapping', 'High-Fidelity Interactive Figma Prototypes', 'Comprehensive Brand Design Systems', 'Usability Testing & Design System Hand-off'],
     tech: ['Figma', 'Prototyping', 'Design Systems', 'Micro-Interactions']
@@ -46,34 +64,15 @@ const SERVICES_DATA = [
   {
     id: 'cloud-devops',
     name: 'Cloud & DevOps',
-    icon: '☁️',
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" />
+      </svg>
+    ),
     summary: 'Scalable cloud infrastructure, automated CI/CD pipelines, container orchestration, serverless edge hosting, and 24/7 reliability.',
     features: ['Cloudflare Edge & Serverless Deployment', 'Docker Containerization & Kubernetes', 'Automated GitHub Actions CI/CD Pipelines', 'Database Clustering, SSL & 99.99% Uptime SLA'],
     tech: ['Cloudflare Workers', 'AWS', 'Docker', 'Linux', 'PostgreSQL', 'CI/CD']
   }
-];
-
-const TECH_STACK = [
-  { category: 'Frontend', items: ['React.js', 'JavaScript', 'HTML5 & CSS3', 'Tailwind CSS', 'Bootstrap', 'Vite'] },
-  { category: 'Backend & APIs', items: ['Node.js', 'Express.js', 'REST APIs', 'Authentication', 'WebSockets', 'PHP'] },
-  { category: 'Databases', items: ['PostgreSQL', 'MySQL', 'MongoDB', 'Redis'] },
-  { category: 'Hosting & Tools', items: ['Linux Cloud Servers', 'cPanel / DirectAdmin', 'GitHub', 'SSL / HTTPS', 'Domain Management'] }
-];
-
-const LANGUAGE_TRAY_ITEMS = [
-  { name: 'Java', category: 'Enterprise Core', icon: '☕', color: '#ea2d2e' },
-  { name: 'Python', category: 'AI & Backend', icon: '🐍', color: '#3776ab' },
-  { name: 'Node.js', category: 'JS Runtime', icon: '🟢', color: '#5fa04e' },
-  { name: 'JavaScript', category: 'Web Script', icon: '⚡', color: '#f7df1e' },
-  { name: 'TypeScript', category: 'Typed Language', icon: '🔷', color: '#3178c6' },
-  { name: 'Go', category: 'Systems & Cloud', icon: '🐹', color: '#00add8' },
-  { name: 'C++', category: 'High Performance', icon: '⚙️', color: '#00599c' },
-  { name: 'C# / .NET', category: 'Enterprise Apps', icon: '🎯', color: '#239120' },
-  { name: 'PHP', category: 'Web Backend', icon: '🐘', color: '#777bb4' },
-  { name: 'Rust', category: 'Memory-Safe Systems', icon: '🦀', color: '#dea584' },
-  { name: 'Kotlin', category: 'Android & Server', icon: '📱', color: '#7f52ff' },
-  { name: 'Swift', category: 'Apple iOS Native', icon: '🍎', color: '#fa7343' },
-  { name: 'SQL', category: 'Database Query', icon: '💾', color: '#336791' }
 ];
 
 export default function App() {
@@ -110,11 +109,7 @@ export default function App() {
     if (saved === 'dark' || saved === 'light') {
       return saved;
     }
-    // If device system preference is dark mode, adapt automatically
-    if (typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      return 'dark';
-    }
-    // Default to clean light mode
+    // Default website loading theme is strictly light mode unless explicitly changed
     return 'light';
   });
   const [activePhraseIndex, setActivePhraseIndex] = useState(0);
@@ -154,32 +149,11 @@ export default function App() {
   const [showcasesLoading, setShowcasesLoading] = useState(true);
   const [previewModalProject, setPreviewModalProject] = useState(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
-  const modalCloseTimerRef = useRef(null);
 
-  // Helper functions for mouse-triggered popup open & close
+  // Click-triggered preview modal open
   const handleOpenPreview = (proj) => {
-    if (modalCloseTimerRef.current) {
-      clearTimeout(modalCloseTimerRef.current);
-      modalCloseTimerRef.current = null;
-    }
     setPreviewModalProject(proj);
     setIframeLoaded(false);
-  };
-
-  const handleScheduleClosePreview = () => {
-    if (modalCloseTimerRef.current) {
-      clearTimeout(modalCloseTimerRef.current);
-    }
-    modalCloseTimerRef.current = setTimeout(() => {
-      setPreviewModalProject(null);
-    }, 280); // Smooth grace period so user can move between card and popup
-  };
-
-  const handleCancelClosePreview = () => {
-    if (modalCloseTimerRef.current) {
-      clearTimeout(modalCloseTimerRef.current);
-      modalCloseTimerRef.current = null;
-    }
   };
 
   // Mobile navigation drawer toggle
@@ -194,25 +168,7 @@ export default function App() {
     localStorage.setItem('aveniq_theme', theme);
   }, [theme]);
 
-  // Listen to OS device theme changes (e.g. user toggles dark mode in their device settings)
-  useEffect(() => {
-    if (typeof window === 'undefined' || !window.matchMedia) return;
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleDeviceThemeChange = (e) => {
-      // Automatically adapt to device mode switch
-      const newTheme = e.matches ? 'dark' : 'light';
-      setTheme(newTheme);
-    };
 
-    // Modern and fallback event listeners for OS media query
-    if (mediaQuery.addEventListener) {
-      mediaQuery.addEventListener('change', handleDeviceThemeChange);
-      return () => mediaQuery.removeEventListener('change', handleDeviceThemeChange);
-    } else if (mediaQuery.addListener) {
-      mediaQuery.addListener(handleDeviceThemeChange);
-      return () => mediaQuery.removeListener(handleDeviceThemeChange);
-    }
-  }, []);
 
   // Dynamic headline rotate
   useEffect(() => {
@@ -265,6 +221,30 @@ export default function App() {
   useEffect(() => {
     fetchPublicShowcases();
   }, []);
+
+  // IntersectionObserver for Scroll Animation Load Sections
+  useEffect(() => {
+    const observerCallback = (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          // Once animated, unobserve to retain high performance
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      root: null,
+      rootMargin: '0px 0px -60px 0px',
+      threshold: 0.12
+    });
+
+    const elements = document.querySelectorAll('.scroll-reveal');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [showcases]);
 
   // Interactive Neural Particle Grid in Canvas
   useEffect(() => {
@@ -505,7 +485,6 @@ export default function App() {
 
           <nav className="desktop-nav">
             <ul className="nav-links">
-              <li><a href="#services" className="nav-link">Our Services</a></li>
               <li>
                 <a href="#projects-showcase" className="nav-link nav-link-highlight">
                   <span>Projects</span>
@@ -513,7 +492,6 @@ export default function App() {
                 </a>
               </li>
               <li><a href="#estimator" className="nav-link">Project Scoper</a></li>
-              <li><a href="#tech-stack" className="nav-link">Technologies</a></li>
               <li><a href="#owner-connect" className="nav-link">Contact</a></li>
             </ul>
           </nav>
@@ -529,7 +507,7 @@ export default function App() {
             >
               {theme === 'dark' ? (
                 <>
-                  <svg className="theme-icon" viewBox="0 0 24 24" fill="none" strokeWidth="2">
+                  <svg className="theme-icon" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                     <circle cx="12" cy="12" r="5" />
                     <line x1="12" y1="1" x2="12" y2="3" />
                     <line x1="12" y1="21" x2="12" y2="23" />
@@ -544,7 +522,7 @@ export default function App() {
                 </>
               ) : (
                 <>
-                  <svg className="theme-icon" viewBox="0 0 24 24" fill="none" strokeWidth="2">
+                  <svg className="theme-icon" viewBox="0 0 24 24" fill="none" strokeWidth="2" stroke="currentColor">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
                   </svg>
                   <span className="theme-btn-label">Dark</span>
@@ -557,7 +535,7 @@ export default function App() {
               className="btn btn-secondary nav-action-btn"
               id="nav-client-portal-btn"
             >
-              <span>📂 Client Login</span>
+              <span>Client Login</span>
             </a>
 
             {/* Order Services direct CTA */}
@@ -569,7 +547,7 @@ export default function App() {
               className="btn btn-primary nav-action-btn nav-order-highlight"
               id="nav-order-btn"
             >
-              <span>🛒 Order Service</span>
+              <span>Order Service</span>
             </button>
 
             {/* Mobile Hamburger Menu Toggle */}
@@ -600,7 +578,7 @@ export default function App() {
                     aria-label="Toggle Theme"
                     style={{ padding: '6px 12px' }}
                   >
-                    {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+                    {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
                   </button>
                   <button
                     type="button"
@@ -614,39 +592,23 @@ export default function App() {
 
               <ul className="mobile-nav-list">
                 <li>
-                  <a href="#services" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                    <span className="nav-item-icon">🚀</span>
-                    <span>Our Services</span>
-                  </a>
-                </li>
-                <li>
                   <a href="#projects-showcase" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                    <span className="nav-item-icon">🌐</span>
                     <span>Projects & Websites</span>
                     <span className="nav-live-badge-mobile">LIVE</span>
                   </a>
                 </li>
                 <li>
                   <a href="#estimator" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                    <span className="nav-item-icon">📊</span>
                     <span>Project Scoper</span>
                   </a>
                 </li>
                 <li>
-                  <a href="#tech-stack" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                    <span className="nav-item-icon">⚡</span>
-                    <span>Technologies</span>
-                  </a>
-                </li>
-                <li>
                   <a href="#owner-connect" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                    <span className="nav-item-icon">📞</span>
                     <span>Contact Leadership</span>
                   </a>
                 </li>
                 <li>
                   <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="mobile-nav-item">
-                    <span className="nav-item-icon">✉️</span>
                     <span>Submit Inquiry</span>
                   </a>
                 </li>
@@ -657,7 +619,7 @@ export default function App() {
                   href="/client-portal"
                   className="btn btn-secondary mobile-cta-btn"
                 >
-                  📂 Client Portal Login
+                  Client Portal Login
                 </a>
                 <button
                   onClick={() => {
@@ -667,7 +629,7 @@ export default function App() {
                   }}
                   className="btn btn-primary mobile-cta-btn"
                 >
-                  🛒 Order Service Online
+                  Order Service Online
                 </button>
               </div>
             </div>
@@ -707,7 +669,7 @@ export default function App() {
                 className="btn btn-primary"
                 id="hero-order-service-btn"
               >
-                <span>🛒 Order Service Online</span>
+                <span>Order Service Online</span>
                 <span>→</span>
               </button>
 
@@ -721,8 +683,12 @@ export default function App() {
                 rel="noreferrer"
                 className="btn btn-accent"
                 id="hero-whatsapp-btn"
+                style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
               >
-                <span>💬 WhatsApp Us</span>
+                <svg className="whatsapp-svg-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                </svg>
+                <span>WhatsApp Us</span>
               </a>
             </div>
 
@@ -799,11 +765,18 @@ export default function App() {
       {/* ====================================================================
           Company Milestone & Achievements Banner
           ==================================================================== */}
-      <section className="achievements-banner-section">
+      <section className="achievements-banner-section scroll-reveal">
         <div className="container">
           <div className="achievements-banner-card">
             <div className="achievement-stat-item">
-              <div className="stat-icon-wrapper">🚀</div>
+              <div className="stat-icon-wrapper">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                  <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                  <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                  <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                </svg>
+              </div>
               <div className="stat-content">
                 <div className="stat-number gradient-text">100+</div>
                 <div className="stat-title">Projects Completed</div>
@@ -814,7 +787,14 @@ export default function App() {
             <div className="achievement-divider"></div>
 
             <div className="achievement-stat-item">
-              <div className="stat-icon-wrapper">🤝</div>
+              <div className="stat-icon-wrapper">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+              </div>
               <div className="stat-content">
                 <div className="stat-number gradient-text">60+</div>
                 <div className="stat-title">Trusted Clients</div>
@@ -825,7 +805,11 @@ export default function App() {
             <div className="achievement-divider"></div>
 
             <div className="achievement-stat-item">
-              <div className="stat-icon-wrapper">⭐</div>
+              <div className="stat-icon-wrapper">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                </svg>
+              </div>
               <div className="stat-content">
                 <div className="stat-number gradient-text">5+ Years</div>
                 <div className="stat-title">Proven Experience</div>
@@ -837,63 +821,9 @@ export default function App() {
       </section>
 
       {/* ====================================================================
-          Services Section
-          ==================================================================== */}
-      <section className="section" id="services">
-        <div className="container">
-          <div className="section-header">
-            <span className="badge-pill">What We Offer</span>
-            <h2 className="section-title">
-              Software Services Tailored for <span className="gradient-text">Your Business Growth</span>
-            </h2>
-            <p className="section-desc">
-              From business websites to custom billing and inventory systems, we build practical, dependable software solutions.
-            </p>
-          </div>
-
-          <div className="services-grid">
-            {SERVICES_DATA.map((srv) => (
-              <div key={srv.id} className="glass-card service-card">
-                <div className="service-card-icon">{srv.icon}</div>
-                <h3 className="service-name">{srv.name}</h3>
-                <p className="service-summary">{srv.summary}</p>
-                <ul className="service-features-list">
-                  {srv.features.map((feat, idx) => (
-                    <li key={idx} className="service-feature-item">
-                      <span className="check-dot">✓</span>
-                      <span>{feat}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="service-tech-pills">
-                  {srv.tech.map((t, idx) => (
-                    <span key={idx} className="tech-tag">{t}</span>
-                  ))}
-                </div>
-                <div style={{ marginTop: '20px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)' }}>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const matched = SOFTWARE_SERVICES.find(s => s.id === srv.id) || srv;
-                      setSelectedOrderService(matched);
-                      setOrderModalOpen(true);
-                    }}
-                    className="btn btn-primary"
-                    style={{ width: '100%', padding: '10px 14px', fontSize: '0.85rem' }}
-                  >
-                    🛒 Order This Service →
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
           Project Scoper Section
           ==================================================================== */}
-      <section className="section" id="estimator" style={{ background: 'var(--bg-surface)' }}>
+      <section className="section scroll-reveal" id="estimator" style={{ background: 'var(--bg-surface)' }}>
         <div className="container">
           <div className="section-header">
             <span className="badge-pill">Project Scoper</span>
@@ -968,19 +898,19 @@ export default function App() {
 
               <ul className="est-deliverables">
                 <li className="est-deliverable-item">
-                  <span style={{ color: 'var(--brand-cyan)' }}>✦</span>
+                  <span className="check-dot">✓</span>
                   <span>Modern, clean and responsive web & mobile UI</span>
                 </li>
                 <li className="est-deliverable-item">
-                  <span style={{ color: 'var(--brand-cyan)' }}>✦</span>
+                  <span className="check-dot">✓</span>
                   <span>Complete source code and full ownership</span>
                 </li>
                 <li className="est-deliverable-item">
-                  <span style={{ color: 'var(--brand-cyan)' }}>✦</span>
+                  <span className="check-dot">✓</span>
                   <span>Direct phone & WhatsApp technical support</span>
                 </li>
                 <li className="est-deliverable-item">
-                  <span style={{ color: 'var(--brand-cyan)' }}>✦</span>
+                  <span className="check-dot">✓</span>
                   <span>Free deployment, domain and SSL setup support</span>
                 </li>
               </ul>
@@ -1002,7 +932,7 @@ export default function App() {
       {/* ====================================================================
           Our Newest Projects & Live Hosted Websites Showcase Section
           ==================================================================== */}
-      <section className="section showcase-section" id="projects-showcase">
+      <section className="section showcase-section scroll-reveal" id="projects-showcase">
         <div className="container">
           <div className="section-header">
             <span className="badge-pill">Portfolio & Live Systems</span>
@@ -1021,8 +951,13 @@ export default function App() {
             </div>
           ) : showcases.length === 0 ? (
             <div className="glass-card" style={{ textAlign: 'center', padding: '50px 20px', borderRadius: '16px' }}>
-              <div style={{ fontSize: '2.5rem', marginBottom: '10px' }}>🚀</div>
-              <h3 style={{ color: '#fff', marginBottom: '6px' }}>New Projects Coming Soon</h3>
+              <div className="stat-icon-wrapper" style={{ margin: '0 auto 12px', width: '48px', height: '48px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                  <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                </svg>
+              </div>
+              <h3 style={{ color: 'var(--text-main)', marginBottom: '6px' }}>New Projects Coming Soon</h3>
               <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', maxWidth: '500px', margin: '0 auto' }}>
                 We are currently deploying our newest client systems. You can add new projects directly from the Admin Panel to showcase them here!
               </p>
@@ -1033,8 +968,6 @@ export default function App() {
                 <div
                   key={proj.id}
                   className="showcase-rectangle-card"
-                  onMouseEnter={() => handleOpenPreview(proj)}
-                  onMouseLeave={handleScheduleClosePreview}
                   onClick={() => handleOpenPreview(proj)}
                 >
                   {/* Browser-style Top Bar */}
@@ -1045,7 +978,10 @@ export default function App() {
                       <span className="b-dot green"></span>
                     </div>
                     <div className="browser-address-pill">
-                      <span className="lock-icon">🔒</span>
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '4px' }}>
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                      </svg>
                       <span className="address-text">{proj.url.replace(/^https?:\/\//i, '')}</span>
                     </div>
                     <span className="showcase-tag-mini">{proj.tag || 'Live'}</span>
@@ -1065,7 +1001,7 @@ export default function App() {
                     {/* Interactive hover overlay */}
                     <div className="showcase-screen-overlay">
                       <div className="overlay-content">
-                        <span className="overlay-badge">⚡ Hover & Scroll Active</span>
+                        <span className="overlay-badge">Interactive Preview</span>
                         <h4 className="overlay-title">{proj.name}</h4>
                         <p className="overlay-desc">{proj.description || 'Interactive live web system built with modern architecture.'}</p>
                         <div className="overlay-actions">
@@ -1077,7 +1013,7 @@ export default function App() {
                               handleOpenPreview(proj);
                             }}
                           >
-                            🔍 Open Scroll View
+                            Open Scroll View
                           </button>
                           <a
                             href={proj.url}
@@ -1086,7 +1022,7 @@ export default function App() {
                             className="btn btn-secondary overlay-btn"
                             onClick={(e) => e.stopPropagation()}
                           >
-                            ↗ Visit Hosted Site
+                            Visit Hosted Site ↗
                           </a>
                         </div>
                       </div>
@@ -1118,21 +1054,16 @@ export default function App() {
       </section>
 
       {/* ====================================================================
-          POPUP HOVER / CLICK PREVIEW MODAL WITH FULL SCROLLABLE WINDOW
-          (Opens on mouse cursor entry, automatically closes when cursor leaves)
+          POPUP PREVIEW MODAL WITH FULL SCROLLABLE WINDOW (Opens only on click)
           ==================================================================== */}
       {previewModalProject && (
         <div
           className="showcase-modal-overlay"
           onClick={() => setPreviewModalProject(null)}
-          onMouseEnter={handleCancelClosePreview}
-          onMouseLeave={handleScheduleClosePreview}
         >
           <div
             className="showcase-modal-window"
             onClick={(e) => e.stopPropagation()}
-            onMouseEnter={handleCancelClosePreview}
-            onMouseLeave={handleScheduleClosePreview}
           >
             {/* Modal Browser Header */}
             <div className="showcase-modal-header">
@@ -1143,7 +1074,10 @@ export default function App() {
               </div>
 
               <div className="showcase-modal-url-bar">
-                <span className="lock-icon">🔒</span>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginRight: '6px' }}>
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
                 <span className="modal-url-text">{previewModalProject.url}</span>
                 <span className="url-badge-verified">SSL SECURE</span>
               </div>
@@ -1156,7 +1090,7 @@ export default function App() {
                   className="btn btn-primary"
                   style={{ padding: '6px 14px', fontSize: '0.8rem', textDecoration: 'none' }}
                 >
-                  ↗ Open Full Tab
+                  Open Full Tab ↗
                 </a>
                 <button
                   type="button"
@@ -1176,15 +1110,12 @@ export default function App() {
                 <strong className="showcase-modal-proj-title">{previewModalProject.name}</strong>
               </div>
               <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)' }}>
-                Hover & scroll inside this window. Moving your cursor outside will automatically close the preview.
+                Scroll and interact inside this preview window. Click outside or use the close button to exit.
               </div>
             </div>
 
             {/* Scrollable Square/Rectangle Iframe Area */}
-            <div
-              className="showcase-modal-scroll-frame"
-              onMouseEnter={handleCancelClosePreview}
-            >
+            <div className="showcase-modal-scroll-frame">
               {!iframeLoaded && (
                 <div className="showcase-iframe-loader">
                   <div className="loader-spinner"></div>
@@ -1209,93 +1140,9 @@ export default function App() {
       )}
 
       {/* ====================================================================
-          Tech Radar
-          ==================================================================== */}
-      <section className="section" id="tech-stack">
-        <div className="container">
-          <div className="section-header">
-            <span className="badge-pill">Battle-Tested Stack</span>
-            <h2 className="section-title">
-              Our Modern <span className="gradient-text">Technology Radar</span>
-            </h2>
-            <p className="section-desc">
-              We leverage modern runtimes, typed languages, and high-performance infrastructure to ensure uncompromised speed and reliability.
-            </p>
-          </div>
-
-          {/* Interactive Mac-Dock Moving Languages Tray */}
-          <div className="language-tray-wrapper">
-            <div className="language-tray-header">
-              <span className="tray-live-indicator">
-                <span className="tray-live-dot"></span>
-                <span>Supported Technologies & Programming Languages</span>
-              </span>
-            </div>
-
-            <div className="language-marquee-container">
-              <div className="language-marquee-track">
-                {/* Loop 1 */}
-                {LANGUAGE_TRAY_ITEMS.map((item, idx) => (
-                  <div key={`tray-1-${idx}`} className="mac-dock-item" style={{ '--accent-color': item.color }}>
-                    <div className="mac-dock-icon-box">
-                      <span className="mac-dock-icon">{item.icon}</span>
-                    </div>
-                    <div className="mac-dock-tooltip">
-                      <span className="dock-tooltip-name">{item.name}</span>
-                      <span className="dock-tooltip-category">{item.category}</span>
-                    </div>
-                  </div>
-                ))}
-                {/* Loop 2 for seamless infinite ticker */}
-                {LANGUAGE_TRAY_ITEMS.map((item, idx) => (
-                  <div key={`tray-2-${idx}`} className="mac-dock-item" style={{ '--accent-color': item.color }}>
-                    <div className="mac-dock-icon-box">
-                      <span className="mac-dock-icon">{item.icon}</span>
-                    </div>
-                    <div className="mac-dock-tooltip">
-                      <span className="dock-tooltip-name">{item.name}</span>
-                      <span className="dock-tooltip-category">{item.category}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="radar-grid">
-            {TECH_STACK.map((category) => (
-              <div key={category.category} className="glass-card tech-node-card">
-                <span className="tech-node-badge">{category.category}</span>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-                  {category.items.map((tech) => (
-                    <div
-                      key={tech}
-                      style={{
-                        padding: '8px 12px',
-                        background: 'var(--bg-surface-elevated)',
-                        borderRadius: '8px',
-                        fontSize: '0.88rem',
-                        fontWeight: '600',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                      }}
-                    >
-                      <span>{tech}</span>
-                      <span style={{ color: '#2563EB', fontWeight: '700', fontSize: '0.78rem' }}>Active</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
           Direct Owner Connect & Contact Section
           ==================================================================== */}
-      <section className="section" id="contact">
+      <section className="section scroll-reveal" id="contact">
         <div className="container">
           <div className="section-header">
             <span className="badge-pill">Direct Transmission</span>
@@ -1313,7 +1160,11 @@ export default function App() {
               {/* WhatsApp Hotline Card */}
               <div className="glass-card hotline-card">
                 <div className="hotline-header">
-                  <div className="hotline-icon">💬</div>
+                  <div className="hotline-icon" style={{ background: '#25D366', color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg className="whatsapp-svg-icon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                    </svg>
+                  </div>
                   <div>
                     <h3 style={{ fontSize: '1.25rem', marginBottom: '2px' }}>Direct WhatsApp Hotline</h3>
                     <p style={{ fontSize: '0.84rem', color: 'var(--text-muted)' }}>
@@ -1329,9 +1180,12 @@ export default function App() {
                   target="_blank"
                   rel="noreferrer"
                   className="btn btn-accent"
-                  style={{ width: '100%' }}
+                  style={{ width: '100%', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
                   id="direct-whatsapp-lead-btn"
                 >
+                  <svg className="whatsapp-svg-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                  </svg>
                   <span>Chat on WhatsApp Directly</span>
                   <span>→</span>
                 </a>
@@ -1345,7 +1199,9 @@ export default function App() {
                   id="direct-phone-call-btn"
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1.2rem' }}>📞</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                    </svg>
                     <span className="channel-label">Direct Voice Call</span>
                   </div>
                   <span className="channel-value">{OWNER_CONTACT.phoneDisplay}</span>
@@ -1358,7 +1214,10 @@ export default function App() {
                   id="direct-email-btn"
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ fontSize: '1.2rem' }}>✉️</span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
                     <span className="channel-label">Executive Email</span>
                   </div>
                   <span className="channel-value">{OWNER_CONTACT.email}</span>
@@ -1559,10 +1418,10 @@ export default function App() {
                     </div>
 
                     <div className="inquiry-meta-row">
-                      <span>📧 <a href={`mailto:${inq.email}`} style={{ color: 'var(--brand-cyan)' }}>{inq.email}</a></span>
-                      <span>📞 {inq.phone}</span>
-                      <span>🛠️ {inq.service}</span>
-                      <span>💰 {inq.budget}</span>
+                      <span>Email: <a href={`mailto:${inq.email}`} style={{ color: 'var(--brand-cyan)' }}>{inq.email}</a></span>
+                      <span>Phone: {inq.phone}</span>
+                      <span>Service: {inq.service}</span>
+                      {inq.budget && <span>Budget: {inq.budget}</span>}
                     </div>
 
                     <div className="inquiry-body-text">
@@ -1575,16 +1434,19 @@ export default function App() {
                         target="_blank"
                         rel="noreferrer"
                         className="btn btn-accent"
-                        style={{ padding: '6px 14px', fontSize: '0.78rem' }}
+                        style={{ padding: '6px 14px', fontSize: '0.78rem', display: 'inline-flex', alignItems: 'center', gap: '6px' }}
                       >
-                        💬 Reply via WhatsApp
+                        <svg className="whatsapp-svg-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+                        </svg>
+                        <span>Reply via WhatsApp</span>
                       </a>
                       <a
                         href={`mailto:${inq.email}?subject=Aveniq%20Inquiry%20${inq.id}`}
                         className="btn btn-secondary"
                         style={{ padding: '6px 14px', fontSize: '0.78rem' }}
                       >
-                        ✉️ Reply Email
+                        Reply Email
                       </a>
                       <button
                         onClick={() => handleDeleteInquiry(inq.id)}
